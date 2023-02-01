@@ -1,0 +1,2145 @@
+
+                             COOCHBEHAR GOVERNMENT ENGINEERING COLLEGE
+				
+
+                                     DATA STRUCTURES AND ALGORITHMS
+                                                    (ES-CS391)
+
+                                   NAME:- CHANDAN SAHOO
+                                   ROLL:-34900321025
+                                   SEMESTER:-3RD
+                   DEPARTMENT:-ELETRONICS AND COMMUNICATION ENGINEERING
+                                         SESSION:-2022-2023
+
+
+
+
+
+
+1.Write A Program To Create A Linked List And Perform Insertion, Deletion, Traversing  and reversing Operation On That Linked List and invert that linked list.
+
+
+Code:-
+
+
+#include <stdio.h>
+#include <stdlib.h>
+ 
+/* Link list node */
+struct Node {
+    int data;
+    struct Node* next;
+};
+ 
+/* Function to reverse the linked list */
+static void reverse(struct Node** head_ref)
+{
+    struct Node* prev = NULL;
+    struct Node* current = *head_ref;
+    struct Node* next = NULL;
+    while (current != NULL) {
+        // Store next
+        next = current->next;
+ 
+        // Reverse current node's pointer
+        current->next = prev;
+ 
+        // Move pointers one position ahead.
+        prev = current;
+        current = next;
+    }
+    *head_ref = prev;
+}
+ 
+/* Function to push a node */
+void push(struct Node** head_ref, int new_data)
+{
+    struct Node* new_node
+        = (struct Node*)malloc(sizeof(struct Node));
+    new_node->data = new_data;
+    new_node->next = (*head_ref);
+    (*head_ref) = new_node;
+}
+ 
+/* Function to print linked list */
+void printList(struct Node* head)
+{
+    struct Node* temp = head;
+    while (temp != NULL) {
+        printf("%d  ", temp->data);
+        temp = temp->next;
+    }
+}
+ 
+/* Driver code*/
+int main()
+{
+    /* Start with the empty list */
+    struct Node* head = NULL;
+ 
+    push(&head, 20);
+    push(&head, 4);
+    push(&head, 15);
+    push(&head, 85);
+ 
+    printf("Given linked list\n");
+    printList(head);
+    reverse(&head);
+    printf("\nReversed Linked list \n");
+    printList(head);
+    getchar();
+}
+
+
+Output:-
+                  
+
+
+ 
+2. Write a Program To Perform Linear Search.
+
+
+Code:-
+
+
+#include <stdio.h>
+int main () 
+{
+int array[100], search, c, n;
+printf ("Enter number of elements in array\n");
+scanf ("%d", &n);
+printf ("Enter %d integer(s)\n", n);
+for (c = 0; c < n; c++)
+scanf ("%d", &array[c]);
+  printf ("Enter a number to search\n");
+  scanf ("%d", &search);
+   for (c = 0; c < n; c++)
+        {
+if (array[c] == search)	
+	{
+printf ("%d is present at location %d.\n", search, c + 1);
+break;
+}
+}
+if (c == n)
+printf ("%d isn't present in the array.\n", search);
+  
+return 0;
+}
+
+
+Output:-
+
+
+ 
+
+3. Write a Program To Perform Binary Search.
+
+
+Code:-
+
+
+#include <stdio.h>
+int main()
+{
+int i, low, high, mid, n, key, array[100];
+printf("Enter number of elementsn:-");
+scanf("%d",&n);
+printf("Enter %d integersn:-", n);
+for(i = 0; i < n; i++)
+scanf("%d",&array[i]);
+printf("Enter value to findn:-");
+scanf("%d", &key);
+low = 0;
+high = n - 1;
+mid = (low+high)/2;
+while (low <= high) {
+if(array[mid] < key)
+low = mid + 1;
+else if (array[mid] == key) {
+printf("%d found at location:- %d.n", key, mid+1);
+break;
+}
+else
+high = mid - 1;
+mid = (low + high)/2;
+}
+if(low > high)
+printf("Not found! %d isn't present in the list:-.n", key);
+return 0;
+}
+
+
+Output:-
+
+ 
+
+
+4. Write a Program to Implement Stack using Array.
+
+Code:-
+
+
+#include<stdio.h>
+int stack[100],choice,n,top,x,i;
+void push(void);
+void pop(void);
+void display(void);
+int main()
+{
+    //clrscr();
+    top=-1;
+    printf("\n Enter the size of STACK[MAX=100]:");
+    scanf("%d",&n);
+    printf("\n\t STACK OPERATIONS USING ARRAY");
+    printf("\n\t--------------------------------");
+    printf("\n\t 1.PUSH\n\t 2.POP\n\t 3.DISPLAY\n\t 4.EXIT");
+    do
+    {
+        printf("\n Enter the Choice:");
+        scanf("%d",&choice);
+        switch(choice)
+        {
+            case 1:
+            {
+                push();
+                break;
+            }
+            case 2:
+            {
+                pop();
+                break;
+            }
+            case 3:
+            {
+                display();
+                break;
+            }
+            case 4:
+            {
+                printf("\n\t EXIT POINT ");
+                break;
+            }
+            default:
+            {
+                printf ("\n\t Please Enter a Valid Choice(1/2/3/4)");
+            }
+                
+        }
+    }
+    while(choice!=4);
+    return 0;
+}
+void push()
+{
+    if(top>=n-1)
+    {
+        printf("\n\tSTACK is over flow");
+        
+    }
+    else
+    {
+        printf(" Enter a value to be pushed:");
+        scanf("%d",&x);
+        top++;
+        stack[top]=x;
+    }
+}
+void pop()
+{
+    if(top<=-1)
+    {
+        printf("\n\t Stack is under flow");
+    }
+    else
+    {
+        printf("\n\t The popped elements is %d",stack[top]);
+        top--;
+    }
+}
+void display()
+{
+    if(top>=0)
+    {
+        printf("\n The elements in STACK \n");
+        for(i=top; i>=0; i--)
+            printf("\n%d",stack[i]);
+        printf("\n Press Next Choice");
+    }
+    else
+    {
+        printf("\n The STACK is empty");
+    }
+   
+}
+
+
+Output:-
+ 
+
+5. Write a Program to Implement Stack using Linked List.
+
+
+Code:-
+
+
+#include <stdio.h>
+#include <stdlib.h>
+struct node{
+   int info;
+   struct node *ptr;
+}*top,*top1,*temp;
+int topelement();
+void push(int data);
+void pop();
+void empty();
+void display();
+void destroy();
+void stack_count();
+void create();
+int count = 0;
+void main(){
+   int no, ch, e;
+   printf("\n 1 - Push");
+   printf("\n 2 - Pop");
+   printf("\n 3 - Top");
+   printf("\n 4 - Empty");
+   printf("\n 5 - Exit");
+   printf("\n 6 - Display");
+   printf("\n 7 - Stack Count");
+   printf("\n 8 - Destroy stack");
+   create();
+   while (1){
+      printf("\n Enter choice : ");
+      scanf("%d", &ch);
+      switch (ch){
+         case 1:
+            printf("Enter element : ");
+         scanf("%d", &no);
+         push(no);
+         break;
+         case 2:
+            pop();
+         break;
+         case 3:
+            if (top == NULL)
+               printf("stack is empty");
+         else{
+            e = topelement();
+            printf("\n Top element : %d", e);
+         }
+         break;
+         case 4:
+            empty();
+         break;
+         case 5:
+            exit(0);
+         case 6:
+            display();
+         break;
+         case 7:
+            stack_count();
+         break;
+         case 8:
+            destroy();
+         break;
+            default :
+         printf(" wrong choice:Try again ");
+         break;
+      }
+   }
+}
+//empty stack
+void create(){
+   top = NULL;
+}
+void stack_count(){
+   printf("\n no: of elements in stack : %d", count);
+}
+//push data
+void push(int data){
+   if (top == NULL){
+      top =(struct node *)malloc(1*sizeof(struct node));
+      top->ptr = NULL;
+      top->info = data;
+   }
+   else{
+      temp =(struct node *)malloc(1*sizeof(struct node));
+      temp->ptr = top;
+      temp->info = data;
+      top = temp;
+   }
+   count++;
+}
+void display(){
+   top1 = top;
+   if (top1 == NULL){
+      printf("empty stack");
+      return;
+   }
+   while (top1 != NULL){
+      printf("%d ", top1->info);
+      top1 = top1->ptr;
+   }
+}
+void pop(){
+   top1 = top;
+   if (top1 == NULL){
+      printf("\n error");
+      return;
+   }
+   else
+      top1 = top1->ptr;
+      printf("\n Popped value : %d", top->info);
+      free(top);
+      top = top1;
+      count--;
+   }
+   int topelement(){
+      return(top->info);
+   }
+   //check stack empty or not
+   void empty(){
+      if (top == NULL)
+         printf("\n empty stack");
+      else
+         printf("\n stack not empty with %d values", count);
+      }
+      void destroy(){
+         top1 = top;
+      while (top1 != NULL){
+         top1 = top->ptr;
+         free(top);
+      top = top1;
+      top1 = top1->ptr;
+   }
+   free(top1);
+   top = NULL;
+   printf("\n all are destroyed");
+   count = 0;
+}
+
+
+Output:-
+
+
+ 
+6.	Write a Program to Implement Queue using Array.
+
+
+
+Code:-
+
+
+
+#include <stdio.h>
+ 
+#define MAX 50
+ 
+void insert();
+void delete();
+void display();
+int queue_array[MAX];
+int rear = - 1;
+int front = - 1;
+main()
+{
+    int choice;
+    while (1)
+    {
+        printf("1.Insert element to queue \n");
+        printf("2.Delete element from queue \n");
+        printf("3.Display all elements of queue \n");
+        printf("4.Quit \n");
+        printf("Enter your choice : ");
+        scanf("%d", &choice);
+        switch (choice)
+        {
+            case 1:
+            insert();
+            break;
+            case 2:
+            delete();
+            break;
+            case 3:
+            display();
+            break;
+            case 4:
+            exit(1);
+            default:
+            printf("Wrong choice \n");
+        } /* End of switch */
+    } /* End of while */
+} /* End of main() */
+ 
+void insert()
+{
+    int add_item;
+    if (rear == MAX - 1)
+    printf("Queue Overflow \n");
+    else
+    {
+        if (front == - 1)
+        /*If queue is initially empty */
+        front = 0;
+        printf("Inset the element in queue : ");
+        scanf("%d", &add_item);
+        rear = rear + 1;
+        queue_array[rear] = add_item;
+    }
+} /* End of insert() */
+ 
+void delete()
+{
+    if (front == - 1 || front > rear)
+    {
+        printf("Queue Underflow \n");
+        return ;
+    }
+    else
+    {
+        printf("Element deleted from queue is : %d\n", queue_array[front]);
+        front = front + 1;
+    }
+} /* End of delete() */
+ 
+void display()
+{
+    int i;
+    if (front == - 1)
+        printf("Queue is empty \n");
+    else
+    {
+        printf("Queue is : \n");
+        for (i = front; i <= rear; i++)
+            printf("%d ", queue_array[i]);
+        printf("\n");
+    }
+} /* End of display() */
+
+
+Output:-
+
+
+ 
+7.	Write a Program to Implement Queue using Linked List.
+
+
+Code:-
+
+
+
+#include <stdio.h>
+#include <stdlib.h>
+ 
+struct node
+{
+    int info;
+    struct node *ptr;
+}*front,*rear,*temp,*front1;
+ 
+int frontelement();
+void enq(int data);
+void deq();
+void empty();
+void display();
+void create();
+void queuesize();
+ 
+int count = 0;
+ 
+void main()
+{
+    int no, ch, e;
+ 
+    printf("\n 1 - Enque");
+    printf("\n 2 - Deque");
+    printf("\n 3 - Front element");
+    printf("\n 4 - Empty");
+    printf("\n 5 - Exit");
+    printf("\n 6 - Display");
+    printf("\n 7 - Queue size");
+    create();
+    while (1)
+    {
+        printf("\n Enter choice : ");
+        scanf("%d", &ch);
+        switch (ch)
+        {
+        case 1:
+            printf("Enter data : ");
+            scanf("%d", &no);
+            enq(no);
+            break;
+        case 2:
+            deq();
+            break;
+        case 3:
+            e = frontelement();
+            if (e != 0)
+                printf("Front element : %d", e);
+            else
+                printf("\n No front element in Queue as queue is empty");
+            break;
+        case 4:
+            empty();
+            break;
+        case 5:
+            exit(0);
+        case 6:
+            display();
+            break;
+        case 7:
+            queuesize();
+            break;
+        default:
+            printf("Wrong choice, Please enter correct choice  ");
+            break;
+        }
+    }
+}
+ 
+/* Create an empty queue */
+void create()
+{
+    front = rear = NULL;
+}
+ 
+/* Returns queue size */
+void queuesize()
+{
+    printf("\n Queue size : %d", count);
+}
+ 
+/* Enqueing the queue */
+void enq(int data)
+{
+    if (rear == NULL)
+    {
+        rear = (struct node *)malloc(1*sizeof(struct node));
+        rear->ptr = NULL;
+        rear->info = data;
+        front = rear;
+    }
+    else
+    {
+        temp=(struct node *)malloc(1*sizeof(struct node));
+        rear->ptr = temp;
+        temp->info = data;
+        temp->ptr = NULL;
+ 
+        rear = temp;
+    }
+    count++;
+}
+ 
+/* Displaying the queue elements */
+void display()
+{
+    front1 = front;
+ 
+    if ((front1 == NULL) && (rear == NULL))
+    {
+        printf("Queue is empty");
+        return;
+    }
+    while (front1 != rear)
+    {
+        printf("%d ", front1->info);
+        front1 = front1->ptr;
+    }
+    if (front1 == rear)
+        printf("%d", front1->info);
+}
+ 
+/* Dequeing the queue */
+void deq()
+{
+    front1 = front;
+ 
+    if (front1 == NULL)
+    {
+        printf("\n Error: Trying to display elements from empty queue");
+        return;
+    }
+    else
+        if (front1->ptr != NULL)
+        {
+            front1 = front1->ptr;
+            printf("\n Dequed value : %d", front->info);
+            free(front);
+            front = front1;
+        }
+        else
+        {
+            printf("\n Dequed value : %d", front->info);
+            free(front);
+            front = NULL;
+            rear = NULL;
+        }
+        count--;
+}
+ 
+/* Returns the front element of queue */
+int frontelement()
+{
+    if ((front != NULL) && (rear != NULL))
+        return(front->info);
+    else
+        return 0;
+}
+ 
+/* Display if queue is empty or not */
+void empty()
+{
+     if ((front == NULL) && (rear == NULL))
+        printf("\n Queue empty");
+    else
+       printf("Queue not empty");
+}
+
+
+Output:-
+
+
+ 
+8.Write a Program To implement sparse matrix.
+
+
+Code:-
+
+
+ #include<stdio.h>
+#include<stdlib.h>
+int main(){
+   int row,col,i,j,a[10][10],count = 0;
+   printf("Enter row\n");
+   scanf("%d",&row);
+   printf("Enter Column\n");
+   scanf("%d",&col);
+   printf("Enter Element of Matrix1\n");
+   for(i = 0; i < row; i++){
+      for(j = 0; j < col; j++){
+         scanf("%d",&a[i][j]);
+      }
+   }
+   printf("Elements are:\n");
+   for(i = 0; i < row; i++){
+      for(j = 0; j < col; j++){
+         printf("%d\t",a[i][j]);
+      }
+      printf("\n");
+   }
+   
+   for(i = 0; i < row; i++){
+      for(j = 0; j < col; j++){
+         if(a[i][j] == 0)
+            count++;
+      }
+   }
+   if(count > ((row * col)/2))
+      printf("Matrix is a sparse matrix \n");
+   else
+      printf("Matrix is not sparse matrix\n");
+}
+
+Output:-
+
+
+:-  
+
+9. Write a Program To Convert An Infix To Postfix Expression.
+
+
+Code:-
+
+
+#include<stdio.h>
+#include<ctype.h>
+char stack[100];
+int top = -1;
+void
+push (char x) 
+{
+  stack[++top] = x;
+} 
+char
+pop () 
+{
+  if (top == -1)
+return -1;
+  else
+return stack[top--];
+}
+int
+priority (char x) 
+{
+if (x == '(')
+return 0;
+if (x == '+' || x == '-')
+return 1;
+if (x == '*' || x == '/')
+return 2;
+return 0;
+}
+int
+main () 
+{ 
+char exp[100];
+char *e, x;
+printf ("Enter the expression : ");
+scanf ("%s", exp);
+  printf ("\n");
+  e = exp;
+while (*e != '\0')
+    {
+if (isalnum (*e))
+printf ("%c ", *e);
+            else if (*e == '(')
+	push (*e);
+      else if (*e == ')')
+	{
+	 
+while ((x = pop ()) != '(')
+printf ("%c ", x);
+} 
+      else
+	{
+while (priority (stack[top]) >= priority (*e))
+printf ("%c ", pop ());
+push (*e);
+}
+e++;
+}
+while (top != -1) 
+    { 
+printf ("%c ", pop ());
+}
+  return 0;
+}
+
+
+Output:-
+
+
+ 
+10.	Write A Program To Sort An Array Using Bubble Sort, Selection Sort and Insertion Sort.
+
+
+
+Code:-
+
+
+#include<stdio.h>
+#include<stdlib.h>
+void display(int a[],int n);
+void bubble_sort(int a[],int n);
+
+void selection_sort(int a[],int n);
+void insertion_sort(int a[],int n);
+int main()
+{
+   int n,choice,i;
+   char ch[20];
+   printf("Enter no. of elements u want to sort : ");
+   scanf("%d",&n);
+   int arr[n];
+   for(i=0;i<n;i++)
+   {
+        printf("Enter %d Element : ",i+1);
+        scanf("%d",&arr[i]);
+   }
+   printf("Please select any option Given Below for Sorting : \n");
+while(1)
+   {
+    printf("\n1. Bubble Sort\n2. Selection Sort\n3. Insertion Sort\n4. Display Array.\n5. Exit the Program.\n");
+    printf("\nEnter your Choice : ");
+    scanf("%d",&choice);
+    switch(choice)
+    {
+    case 1:
+        bubble_sort(arr,n);
+        break;
+    case 2:
+        selection_sort(arr,n);
+        break;
+    case 3:
+        insertion_sort(arr,n);
+        break;
+    case 4:
+ 
+display(arr,n);
+        break;
+    case 5:
+        return 0;
+    default:
+        printf("\nPlease Select only 1-5 option ----\n");
+    }
+}
+return 0;
+}
+void display(int arr[],int n)
+{
+    for(int i=0;i<n;i++)
+   {
+        printf(" %d ",arr[i]);
+   }
+}
+void bubble_sort(int arr[],int n)
+{
+  int i,j,temp;
+  for(i=0;i<n;i++)
+  {
+      for(j=0;j<n-i-1;j++)
+      {
+          if(arr[j]>arr[j+1])
+          {
+             temp=arr[j];
+             arr[j]=arr[j+1];
+             arr[j+1]=temp;
+          }
+      }
+  }
+
+printf("After Bubble sort Elements are : ");
+display(arr,n);
+}
+void selection_sort(int arr[],int n)
+{
+    int i,j,temp;
+    for(i=0;i<n-1;i++)
+
+    {
+
+        for(j=i+1;j<n;j++)
+
+        {
+
+            if(arr[i]>arr[j])
+
+            {
+
+             temp=arr[i];
+
+             arr[i]=arr[j];
+
+             arr[j]=temp;
+
+            }
+
+        }
+    }
+
+printf("After Selection sort Elements are : ");
+
+display(arr,n);
+
+}
+
+void insertion_sort(int arr[],int n)
+
+{
+
+    int i,j,min;
+
+    for(i=1;i<n;i++)
+
+    {
+
+        min=arr[i];
+
+        j=i-1;
+
+        while(min<arr[j] && j>=0)
+
+        {
+
+            arr[j+1]=arr[j];
+
+            j=j-1;
+
+        }
+
+        arr[j+1]=min;
+
+    }
+
+printf("After Insertion sort Elements are : ");
+
+display(arr,n);
+
+}
+
+
+Output:-
+
+
+ 
+11.	Write A Program To Sort An Array Using MergeSort and Quick Sort.
+
+
+Code:-
+
+
+#include <stdio.h>
+#include <stdlib.h>
+void merge(int arr[], int l, int m, int r)
+{
+    int i, j, k;
+    int n1 = m - l + 1;
+    int n2 = r - m;
+    int L[n1], R[n2];
+    for (i = 0; i < n1; i++)
+        L[i] = arr[l + i];
+    for (j = 0; j < n2; j++)
+        R[j] = arr[m + 1 + j];
+    i = 0; 
+    j = 0; 
+    k = l; 
+    while (i < n1 && j < n2) {
+        if (L[i] <= R[j]) {
+            arr[k] = L[i];
+            i++;
+        }
+        else {
+            arr[k] = R[j];
+            j++;
+        }
+        k++;
+    }
+    while (i < n1) {
+        arr[k] = L[i];
+        i++;
+        k++;
+    }
+    while (j < n2) {
+        arr[k] = R[j];
+        j++;
+        k++;
+    }
+}
+void mergeSort(int arr[], int l, int r)
+{
+    if (l < r) {
+        int m = l + (r - l) / 2; 
+        mergeSort(arr, l, m);
+        mergeSort(arr, m + 1, r); 
+        merge(arr, l, m, r);
+    }
+}
+void printArray(int A[], int size)
+{
+    int i;
+    for (i = 0; i < size; i++)
+        printf("%d ", A[i]);
+    printf("\n");
+}
+int main()
+{
+    int arr[] = { 12, 11, 13, 5, 6, 7 };
+    int arr_size = sizeof(arr) / sizeof(arr[0]); 
+    printf("Given array is \n");
+    printArray(arr, arr_size); 
+    mergeSort(arr, 0, arr_size - 1); 
+    printf("\nSorted array is \n");
+    printArray(arr, arr_size);
+    return 0;
+}
+
+
+Output:-
+
+	
+ 
+12.	Write A Program To Sort An Array Using HeapSort.
+
+
+Code:-
+
+
+#include <stdio.h>
+  void swap(int *a, int *b) {
+    int temp = *a;
+    *a = *b;
+    *b = temp;
+  }
+  
+  void heapify(int arr[], int n, int i) {
+    
+    int largest = i;
+    int left = 2 * i + 1;
+    int right = 2 * i + 2;
+  
+    if (left < n && arr[left] > arr[largest])
+      largest = left;
+  
+    if (right < n && arr[right] > arr[largest])
+      largest = right;
+  
+    if (largest != i) {
+      swap(&arr[i], &arr[largest]);
+      heapify(arr, n, largest);
+    }
+  }
+  void heapSort(int arr[], int n) {
+    for (int i = n / 2 - 1; i >= 0; i--)
+      heapify(arr, n, i);
+    for (int i = n - 1; i >= 0; i--) {
+      swap(&arr[0], &arr[i]);
+      heapify(arr, i, 0);
+    }
+  }
+  void printArray(int arr[], int n) {
+    for (int i = 0; i < n; ++i)
+      printf("%d ", arr[i]);
+    printf("\n");
+  }
+  
+  // Driver code
+  int main() {
+    int arr[] = {1, 12, 9, 5, 6, 10};
+    int n = sizeof(arr) / sizeof(arr[0]);
+  
+    heapSort(arr, n);
+  
+    printf("Sorted array is \n");
+    printArray(arr, n);
+  }
+
+
+
+Output:-
+
+
+ 
+13.	Write A Program To Implement Hash Table.
+
+
+Code:-
+
+
+#include <stdio.h>
+#include <stdlib.h>
+ 
+struct HashNode {
+    int key;
+    int value;
+};
+ 
+const int capacity = 20;
+int size = 0;
+ 
+struct HashNode** arr;
+struct HashNode* dummy;
+ 
+// Function to add key value pair
+void insert(int key, int V)
+{
+ 
+    struct HashNode* temp
+        = (struct HashNode*)malloc(sizeof(struct HashNode));
+    temp->key = key;
+    temp->value = V;
+ 
+    // Apply hash function to find
+    // index for given key
+    int hashIndex = key % capacity;
+ 
+    // Find next free space
+    while (arr[hashIndex] != NULL
+           && arr[hashIndex]->key != key
+           && arr[hashIndex]->key != -1) {
+        hashIndex++;
+        hashIndex %= capacity;
+    }
+ 
+    // If new node to be inserted
+    // increase the current size
+    if (arr[hashIndex] == NULL
+        || arr[hashIndex]->key == -1)
+        size++;
+ 
+    arr[hashIndex] = temp;
+}
+ 
+// Function to delete a key value pair
+int delete (int key)
+{
+    // Apply hash function to find
+    // index for given key
+    int hashIndex = key % capacity;
+ 
+    // Finding the node with given
+    // key
+    while (arr[hashIndex] != NULL) {
+        // if node found
+        if (arr[hashIndex]->key == key) {
+            // Insert dummy node here
+            // for further use
+            arr[hashIndex] = dummy;
+ 
+            // Reduce size
+            size--;
+ 
+            // Return the value of the key
+            return 1;
+        }
+        hashIndex++;
+        hashIndex %= capacity;
+    }
+ 
+    // If not found return null
+    return 0;
+}
+ 
+// Function to search the value
+// for a given key
+int find(int key)
+{
+    // Apply hash function to find
+    // index for given key
+    int hashIndex = (key % capacity);
+ 
+    int counter = 0;
+ 
+    // Find the node with given key
+    while (arr[hashIndex] != NULL) {
+ 
+        int counter = 0;
+        // If counter is greater than
+        // capacity
+        if (counter++ > capacity)
+            break;
+ 
+        // If node found return its
+        // value
+        if (arr[hashIndex]->key == key)
+            return arr[hashIndex]->value;
+ 
+        hashIndex++;
+        hashIndex %= capacity;
+    }
+ 
+    // If not found return
+    // -1
+    return -1;
+}
+ 
+// Driver Code
+int main()
+{
+    // Space allocation
+    arr = (struct HashNode**)malloc(sizeof(struct HashNode*)
+                                    * capacity);
+    // Assign NULL initially
+    for (int i = 0; i < capacity; i++)
+        arr[i] = NULL;
+ 
+    dummy
+        = (struct HashNode*)malloc(sizeof(struct HashNode));
+ 
+    dummy->key = -1;
+    dummy->value = -1;
+ 
+    insert(1, 5);
+    insert(2, 15);
+    insert(3, 20);
+    insert(4, 7);
+ 
+    if (find(4) != -1)
+        printf("Value of Key 4 = %d\n", find(4));
+    else
+        printf("Key 4 does not exists\n");
+ 
+    if (delete (4))
+        printf("Node value of key 4 is deleted "
+               "successfully\n");
+    else {
+        printf("Key does not exists\n");
+    }
+ 
+    if (find(4) != -1)
+        printf("Value of Key 4 = %d\n", find(4));
+    else
+        printf("Key 4 does not exists\n");
+}
+
+
+
+
+Output:-
+
+
+ 
+14.	Write A Program To Perform Graph Traversal: BFS and DFS.
+
+
+Code:-
+
+
+#include<stdio.h>
+int q[20],top=-1,front=-1,rear=-1,a[20][20],vis[20],stack[20];
+int delete();
+void add(int item);
+void bfs(int s,int n);
+void dfs(int s,int n);
+void push(int item);
+int pop();
+void main()
+{
+int n,i,s,ch,j;
+char c,dummy;
+printf("ENTER THE NUMBER VERTICES ");
+scanf("%d",&n);
+for(i=1;i<=n;i++)
+{
+for(j=1;j<=n;j++)
+{
+printf("ENTER 1 IF %d HAS A NODE WITH %d ELSE 0 ",i,j);
+scanf("%d",&a[i][j]);
+}
+}
+printf("THE ADJACENCY MATRIX IS\n");
+for(i=1;i<=n;i++)
+{
+for(j=1;j<=n;j++)
+{
+printf(" %d",a[i][j]);
+}
+printf("\n");
+}
+do
+{
+for(i=1;i<=n;i++)
+vis[i]=0;
+printf("\nMENU");
+printf("\n1.B.F.S");
+printf("\n2.D.F.S");
+printf("\nENTER YOUR CHOICE");
+scanf("%d",&ch);
+printf("ENTER THE SOURCE VERTEX :");
+scanf("%d",&s);
+switch(ch)
+{
+case 1:bfs(s,n);
+break;
+case 2:
+dfs(s,n);
+break;
+}
+printf("DO U WANT TO CONTINUE(Y/N) ? ");
+scanf("%c",&dummy);
+scanf("%c",&c);
+}while((c=='y')||(c=='Y'));
+}
+void bfs(int s,int n)
+{
+int p,i;
+add(s);
+vis[s]=1;
+p=delete();
+if(p!=0)
+printf(" %d",p);
+while(p!=0)
+{
+for(i=1;i<=n;i++)
+if((a[p][i]!=0)&&(vis[i]==0))
+{
+add(i);
+vis[i]=1;
+}
+p=delete();
+if(p!=0)
+printf(" %d ",p);
+}
+for(i=1;i<=n;i++)
+if(vis[i]==0)
+bfs(i,n);
+}
+void add(int item)
+{
+if(rear==19)
+printf("QUEUE FULL");
+else
+{
+if(rear==-1)
+{
+q[++rear]=item;
+front++;
+}
+else
+q[++rear]=item;
+}
+}
+int delete()
+{
+int k;
+if((front>rear)||(front==-1))
+return(0);
+else
+{
+k=q[front++];
+return(k);
+}
+}
+void dfs(int s,int n)
+{
+int i,k;
+push(s);
+vis[s]=1;
+k=pop();
+if(k!=0)
+printf(" %d ",k);
+while(k!=0)
+{
+for(i=1;i<=n;i++)
+if((a[k][i]!=0)&&(vis[i]==0))
+{
+push(i);
+vis[i]=1;
+}
+k=pop();
+if(k!=0)
+printf(" %d ",k);
+}
+for(i=1;i<=n;i++)
+if(vis[i]==0)
+dfs(i,n);
+}
+void push(int item)
+{
+if(top==19)
+printf("Stack overflow ");
+else
+stack[++top]=item;
+}
+int pop()
+{
+int k;
+if(top==-1)
+return(0);
+else
+{
+k=stack[top--];
+return(k);
+}
+}
+
+
+
+Output:-
+
+
+ 
+15.	Write A Program To Perform Tree Traversal: Preorder, Inorder and Postorder.
+
+
+Code:-
+#include <stdio.h>
+#include <stdlib.h>
+struct node {
+    int data;
+    struct node* left;
+    struct node* right;
+};
+struct node* newNode(int data)
+{
+    struct node* node
+        = (struct node*)malloc(sizeof(struct node));
+    node->data = data;
+    node->left = NULL;
+    node->right = NULL; 
+    return (node);
+}
+void printPostorder(struct node* node)
+{
+    if (node == NULL)
+        return;
+    printPostorder(node->left);
+    printPostorder(node->right);
+    printf("%d ", node->data);
+}
+void printInorder(struct node* node)
+{
+    if (node == NULL)
+        return;
+    printInorder(node->left);
+    printf("%d ", node->data);
+    printInorder(node->right);
+}
+void printPreorder(struct node* node)
+{
+    if (node == NULL)
+        return;
+    printf("%d ", node->data);
+    printPreorder(node->left);
+    printPreorder(node->right);
+}
+int main()
+{
+    struct node* root = newNode(1);
+    root->left = newNode(2);
+    root->right = newNode(3);
+    root->left->left = newNode(4);
+    root->left->right = newNode(5); 
+    printf("\nPreorder traversal of binary tree is \n");
+    printPreorder(root); 
+    printf("\nInorder traversal of binary tree is \n");
+    printInorder(root); 
+    printf("\nPostorder traversal of binary tree is \n");
+    printPostorder(root); 
+    getchar();
+    return 0;
+}
+
+
+Output:-
+
+
+ 
+16.	Write A program To Perform Searching, Insertion and Deletion on a Binary Search Tree.
+
+
+
+Code:-
+
+
+
+#include <stdio.h>
+#include <stdlib.h>
+typedef struct node {
+int data;
+struct node *left;
+struct node *right;
+struct node *parent;
+}node;
+typedef struct binary_search_tree {
+node *root;
+}binary_search_tree;
+node* new_node(int data) {
+node *n = malloc(sizeof(node));
+n->data = data;
+n->left = NULL;
+n->right = NULL;
+n->parent = NULL;
+return n;
+}
+binary_search_tree* new_binary_search_tree() {
+binary_search_tree *t = malloc(sizeof(binary_search_tree));
+t->root = NULL;
+return t;
+}
+node* minimum(binary_search_tree *t, node *x) {
+while(x->left != NULL)
+  x = x->left;
+return x;
+}
+void insert(binary_search_tree *t, node *n) {
+node *y = NULL;
+node *temp = t->root;
+while(temp != NULL) {
+  y = temp;
+  if(n->data < temp->data)
+    temp = temp->left;
+  else
+    temp = temp->right;
+}
+n->parent = y;
+
+if(y == NULL) //newly added node is root
+  t->root = n;
+else if(n->data < y->data)
+  y->left = n;
+else
+  y->right = n;
+}
+void transplant(binary_search_tree *t, node *u, node *v) {
+if(u->parent == NULL) //u is root
+  t->root = v;
+else if(u == u->parent->left) //u is left child
+  u->parent->left = v;
+else //u is right child
+  u->parent->right = v;
+if(v != NULL)
+  v->parent = u->parent;
+}
+void delete(binary_search_tree *t, node *z) {
+if(z->left == NULL) {
+  transplant(t, z, z->right);
+  free(z);
+}
+else if(z->right == NULL) {
+  transplant(t, z, z->left);
+  free(z);
+}
+else {
+  node *y = minimum(t, z->right); //minimum element in right subtree
+  if(y->parent != z) {
+    transplant(t, y, y->right);
+    y->right = z->right;
+    y->right->parent = y;
+  }
+  transplant(t, z, y);
+  y->left = z->left;
+  y->left->parent = y;
+  free(z);
+}
+}
+
+void inorder(binary_search_tree *t, node *n) {
+if(n != NULL) {
+  inorder(t, n->left);
+  printf("%d\n", n->data);
+  inorder(t, n->right);
+}
+}
+
+int main() {
+binary_search_tree *t = new_binary_search_tree();
+
+node *a, *b, *c, *d, *e, *f, *g, *h, *i, *j, *k, *l, *m;
+
+a = new_node(10);
+b = new_node(20);
+c = new_node(30);
+d = new_node(100);
+e = new_node(90);
+f = new_node(40);
+g = new_node(50);
+h = new_node(60);
+i = new_node(70);
+j = new_node(80);
+k = new_node(150);
+l = new_node(110);
+m = new_node(120);
+
+insert(t, a);
+insert(t, b);
+insert(t, c);
+insert(t, d);
+insert(t, e);
+insert(t, f);
+insert(t, g);
+insert(t, h);
+insert(t, i);
+insert(t, j);
+insert(t, k);
+insert(t, l);
+insert(t, m);
+
+delete(t, a);
+delete(t, m);
+
+inorder(t, t->root);
+
+return 0;
+}
+
+
+
+Output:-
+
+
+
+ 
+17.	Write A Program To Implement Threaded binary tree.
+
+
+
+Code:-
+
+
+#include <stdio.h>
+#include <stdlib.h>
+
+typedef enum {false,true} boolean;
+
+struct node *in_succ(struct node *p);
+struct node *in_pred(struct node *p);
+struct node *insert(struct node *root, int ikey);
+struct node *del(struct node *root, int dkey);
+struct node *case_a(struct node *root, struct node *par,struct node *ptr);
+struct node *case_b(struct node *root,struct node *par,struct node *ptr);
+struct node *case_c(struct node *root, struct node *par,struct node *ptr);
+
+void inorder( struct node *root);
+void preorder( struct node *root);
+
+struct node
+{
+        struct node *left;
+        boolean lthread;
+        int info;
+        boolean rthread;
+        struct node *right;
+};
+
+int main( )
+{
+        int choice,num;
+        struct node *root=NULL;
+
+        while(1)
+        {
+                printf("\n");
+                printf("1.Insert\n");
+                printf("2.Delete\n");
+                printf("3.Inorder Traversal\n");
+                printf("4.Preorder Traversal\n");
+                printf("5.Quit\n");
+                printf("\nEnter your choice : ");
+                scanf("%d",&choice);
+
+                switch(choice)
+                {
+                 case 1:
+                        printf("\nEnter the number to be inserted : ");
+                        scanf("%d",&num);
+                        root = insert(root,num);
+                        break;
+
+                 case 2:
+                        printf("\nEnter the number to be deleted : ");
+                        scanf("%d",&num);
+                        root = del(root,num);
+                        break;
+
+                 case 3:
+                        inorder(root);
+                        break;
+
+                 case 4:
+                        preorder(root);
+                        break;
+
+                 case 5:
+                         exit(1);
+
+                 default:
+                        printf("\nWrong choice\n");
+                }/*End of switch */
+        }/*End of while */
+
+        return 0;
+
+}/*End of main( )*/
+
+struct node *insert(struct node *root, int ikey)
+{
+        struct node *tmp,*par,*ptr;
+
+        int found=0;
+
+        ptr = root;
+        par = NULL;
+
+        while( ptr!=NULL )
+        {
+                if( ikey == ptr->info)
+                {
+                        found =1;
+                        break;
+                }
+                par = ptr;
+                if(ikey < ptr->info)
+                {
+                        if(ptr->lthread == false)
+                                ptr = ptr->left;
+                        else
+                                break;
+                }
+                else
+                {
+                        if(ptr->rthread == false)
+                                ptr = ptr->right;
+                        else
+                                break;
+                }
+        }
+
+        if(found)
+                printf("\nDuplicate key");
+        else
+        {
+
+                tmp=(struct node *)malloc(sizeof(struct node));
+                tmp->info=ikey;
+                tmp->lthread = true;
+                tmp->rthread = true;
+                if(par==NULL)
+                {
+                        root=tmp;
+                        tmp->left=NULL;
+                        tmp->right=NULL;
+                }
+                else if( ikey < par->info )
+                {
+                        tmp->left=par->left;
+                        tmp->right=par;
+                        par->lthread=false;
+                        par->left=tmp;
+                }
+                else
+                {
+                        tmp->left=par;
+                        tmp->right=par->right;
+                        par->rthread=false;
+                        par->right=tmp;
+                }
+        }
+        return root;
+}/*End of insert( )*/
+
+struct node *del(struct node *root, int dkey)
+{
+        struct node *par,*ptr;
+
+        int found=0;
+
+        ptr = root;
+        par = NULL;
+
+        while( ptr!=NULL)
+        {
+                if( dkey == ptr->info)
+                {
+                        found =1;
+                        break;
+                }
+                par = ptr;
+                if(dkey < ptr->info)
+                {
+                        if(ptr->lthread == false)
+                                ptr = ptr->left;
+                        else
+                                break;
+                }
+                else
+                {
+                        if(ptr->rthread == false)
+                                ptr = ptr->right;
+                        else
+                                break;
+                }
+        }
+
+        if(found==0)
+                printf("\ndkey not present in tree");
+        else if(ptr->lthread==false && ptr->rthread==false)/*2 children*/
+                root = case_c(root,par,ptr);
+        else if(ptr->lthread==false )/*only left child*/
+        root = case_b(root, par,ptr);
+        else if(ptr->rthread==false)/*only right child*/
+        root = case_b(root, par,ptr);
+        else /*no child*/
+                root = case_a(root,par,ptr);
+        return root;
+}
+struct node *case_a(struct node *root, struct node *par,struct node *ptr )
+{
+        if(par==NULL) /*root node to be deleted*/
+                root=NULL;
+        else if(ptr==par->left)
+        {
+                par->lthread=true;
+                par->left=ptr->left;
+        }
+        else
+        {
+                par->rthread=true;
+                par->right=ptr->right;
+        }
+        free(ptr);
+        return root;
+}/*End of case_a( )*/
+struct node *case_b(struct node *root,struct node *par,struct node *ptr)
+{
+        struct node *child,*s,*p;
+        /*Initialize child*/
+        if(ptr->lthread==false) /*node to be deleted has left child */
+                child=ptr->left;
+        else                /*node to be deleted has right child */
+                child=ptr->right;
+        if(par==NULL )   /*node to be deleted is root node*/
+                root=child;
+        else if( ptr==par->left) /*node is left child of its parent*/
+                par->left=child;
+        else                     /*node is right child of its parent*/
+                par->right=child;
+        s=in_succ(ptr);
+        p=in_pred(ptr);
+        if(ptr->lthread==false) /*if ptr has left subtree */
+                        p->right=s;
+        else
+        {
+                if(ptr->rthread==false) /*if ptr has right subtree*/
+                        s->left=p;
+        }
+        free(ptr);
+        return root;
+}
+struct node *case_c(struct node *root, struct node *par,struct node *ptr)
+{
+        struct node *succ,*parsucc;
+        /*Find inorder successor and its parent*/
+        parsucc = ptr;
+        succ = ptr->right;
+        while(succ->left!=NULL)
+        {
+                parsucc = succ;
+                succ = succ->left;
+        }
+        ptr->info = succ->info;
+
+        if(succ->lthread==true && succ->rthread==true)
+                root = case_a(root, parsucc,succ);
+        else
+                root = case_b(root, parsucc,succ);
+        return root;
+}
+struct node *in_succ(struct node *ptr)
+{
+        if(ptr->rthread==true)
+                return ptr->right;
+        else
+        {
+                ptr=ptr->right;
+                while(ptr->lthread==false)
+                        ptr=ptr->left;
+                return ptr;
+        }
+}/*End of in_succ( )*/
+struct node *in_pred(struct node *ptr)
+{
+        if(ptr->lthread==true)
+                return ptr->left;
+        else
+        {
+                ptr=ptr->left;
+                while(ptr->rthread==false)
+                        ptr=ptr->right;
+                return ptr;
+        }
+}/*End of in_pred( )*/
+
+void inorder( struct node *root)
+{
+        struct node *ptr;
+        if(root == NULL )
+        {
+                printf("Tree is empty");
+                return;
+        }
+        ptr=root;
+        /*Find the leftmost node */
+        while(ptr->lthread==false)
+                ptr=ptr->left;
+        while( ptr!=NULL )
+        {
+                printf("%d ",ptr->info);
+                ptr=in_succ(ptr);
+        }
+}/*End of inorder( )*/
+
+void preorder(struct node *root )
+{
+        struct node *ptr;
+        if(root==NULL)
+        {
+                printf("Tree is empty");
+                return;
+        }
+        ptr=root;
+
+        while(ptr!=NULL)
+        {
+                printf("%d ",ptr->info);
+                if(ptr->lthread==false)
+                        ptr=ptr->left;
+                else if(ptr->rthread==false)
+                        ptr=ptr->right;
+                else
+                {
+                        while(ptr!=NULL && ptr->rthread==true)
+                                ptr=ptr->right;
+                        if(ptr!=NULL)
+                                ptr=ptr->right;
+                }
+        }
+}
+
+
+
+Output:-
+
+
+ 
+ 
+18	Write A Program To Implement AVL tree.
+
+
+
+Code:-
+
+
+
+#include <stdio.h>
+#include <stdlib.h>
+struct Node {
+  int key;
+  struct Node *left;
+  struct Node *right;
+  int height;
+};
+
+int max(int a, int b);
+int height(struct Node *N) {
+  if (N == NULL)
+    return 0;
+  return N->height;
+}
+int max(int a, int b) {
+  return (a > b) ? a : b;
+}
+struct Node *newNode(int key) {
+  struct Node *node = (struct Node *)
+    malloc(sizeof(struct Node));
+  node->key = key;
+  node->left = NULL;
+  node->right = NULL;
+  node->height = 1;
+  return (node);
+}
+struct Node *rightRotate(struct Node *y) {
+  struct Node *x = y->left;
+  struct Node *T2 = x->right;
+  x->right = y;
+  y->left = T2;
+  y->height = max(height(y->left), height(y->right)) + 1;
+  x->height = max(height(x->left), height(x->right)) + 1;
+  return x;
+}
+struct Node *leftRotate(struct Node *x) {
+  struct Node *y = x->right;
+  struct Node *T2 = y->left;
+  y->left = x;
+  x->right = T2;
+  x->height = max(height(x->left), height(x->right)) + 1;
+  y->height = max(height(y->left), height(y->right)) + 1;
+  return y;
+}
+int getBalance(struct Node *N) {
+  if (N == NULL)
+    return 0;
+  return height(N->left) - height(N->right);
+}
+struct Node *insertNode(struct Node *node, int key) { 
+  if (node == NULL)
+    return (newNode(key));
+
+  if (key < node->key)
+    node->left = insertNode(node->left, key);
+  else if (key > node->key)
+    node->right = insertNode(node->right, key);
+  else
+    return node;
+  // Update the balance factor of each node and
+  // Balance the tree
+  node->height = 1 + max(height(node->left),
+               height(node->right));
+  int balance = getBalance(node);
+  if (balance > 1 && key < node->left->key)
+    return rightRotate(node);
+  if (balance < -1 && key > node->right->key)
+    return leftRotate(node);
+  if (balance > 1 && key > node->left->key) {
+    node->left = leftRotate(node->left);
+    return rightRotate(node);
+  }
+  if (balance < -1 && key < node->right->key) {
+    node->right = rightRotate(node->right);
+    return leftRotate(node);
+  }
+  return node;
+}
+struct Node *minValueNode(struct Node *node) {
+  struct Node *current = node;
+  while (current->left != NULL)
+    current = current->left;
+return current;
+}
+struct Node *deleteNode(struct Node *root, int key) {
+  // Find the node and delete it
+  if (root == NULL)
+    return root;
+  if (key < root->key)
+    root->left = deleteNode(root->left, key);
+  else if (key > root->key)
+    root->right = deleteNode(root->right, key);
+  else {
+    if ((root->left == NULL) || (root->right == NULL)) {
+      struct Node *temp = root->left ? root->left : root->right;
+      if (temp == NULL) {
+        temp = root;
+        root = NULL;
+      } else
+        *root = *temp;
+      free(temp);
+    } else {
+      struct Node *temp = minValueNode(root->right);
+
+ root->key = temp->key;
+      root->right = deleteNode(root->right, temp->key);
+    }
+  }
+  if (root == NULL)
+    return root;
+  root->height = 1 + max(height(root->left),
+               height(root->right));
+  int balance = getBalance(root);
+  if (balance > 1 && getBalance(root->left) >= 0)
+    return rightRotate(root);
+  if (balance > 1 && getBalance(root->left) < 0) {
+    root->left = leftRotate(root->left);
+    return rightRotate(root);
+  }
+  if (balance < -1 && getBalance(root->right) <= 0)
+    return leftRotate(root);
+  if (balance < -1 && getBalance(root->right) > 0) {
+    root->right = rightRotate(root->right);
+    return leftRotate(root);
+  }
+  return root;
+}
+void printPreOrder(struct Node *root) {
+  if (root != NULL) {
+    printf("%d ", root->key);
+    printPreOrder(root->left);
+    printPreOrder(root->right);
+  }
+}
+int main() {
+  struct Node *root = NULL;
+  root = insertNode(root, 2);
+  root = insertNode(root, 1);
+  root = insertNode(root, 7);
+  root = insertNode(root, 4);
+  root = insertNode(root, 5);
+  root = insertNode(root, 3);
+  root = insertNode(root, 8);
+ printPreOrder(root);
+  root = deleteNode(root, 3);
+  printf("\nAfter deletion: ");
+  printPreOrder(root);
+return 0;
+}
+
+
+
+Output:-
+ 
+
+
+
+
+
