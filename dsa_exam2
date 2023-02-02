@@ -1,0 +1,2321 @@
+Practical Questions : -
+1	Write A Program To Create A Linked List And Perform Insertion, Deletion, Traversing  and reversing Operation On That Linked List and invert that linked list.
+2	Write a Program To Perform Linear Search 
+3	Write a Program To Perform Binary Search
+4	Write a Program to Implement Stack using Array
+5	Write a Program to Implement Stack using Linked List
+6	Write a Program to Implement Queue using Array
+7	Write a Program to Implement Queue using Linked List
+8	Write a Program To implement sparse matrix.
+9	Write a Program To Convert An Infix To Postfix Expression.
+10	Write A Program To Sort An Array Using Bubble Sort, Selection Sort and Insertion Sort.
+11	Write A Program To Sort An Array Using MergeSort and Quick Sort.
+12	Write A Program To Sort An Array Using HeapSort.
+13	Write A Program To Implement Hash Table.
+14	Write A Program To Perform Graph Traversal: BFS and DFS
+15	Write A Program To Perform Tree Traversal: Preorder, Inorder and Postorder
+16	Write A program To Perform Searching, Insertion and Deletion on a Binary Search Tree 
+17	Write A Program To Implement Threaded binary tree. 
+18	Write A Program To Implement AVL tree.
+
+Code Answers and Output Specimens : -
+
+1.)
+
+#include <stdio.h>
+#include <stdlib.h>
+struct node {
+	int info;
+	struct node* link;
+};
+struct node* start = NULL;
+void createList()
+{
+	if (start == NULL) {
+		int n;
+		printf("\nEnter the number of nodes: ");
+		scanf("%d", &n);
+		if (n != 0) {
+			int data;
+			struct node* newnode;
+			struct node* temp;
+			newnode = malloc(sizeof(struct node));
+			start = newnode;
+			temp = start;
+			printf("\nEnter number to"
+				" be inserted : ");
+			scanf("%d", &data);
+			start->info = data;
+			for (int i = 2; i <= n; i++) {
+				newnode = malloc(sizeof(struct node));
+				temp->link = newnode;
+				printf("\nEnter number to"
+					" be inserted : ");
+				scanf("%d", &data);
+				newnode->info = data;
+				temp = temp->link;
+			}
+		}
+		printf("\nThe list is created\n");
+	}
+	else
+		printf("\nThe list is already created\n");
+}
+void traverse()
+{
+	struct node* temp;
+	if (start == NULL)
+		printf("\nList is empty\n");
+	else {
+		temp = start;
+		while (temp != NULL) {
+			printf("Data = %d\n", temp->info);
+			temp = temp->link;
+		}
+	}
+}
+void insertAtFront()
+{
+	int data;
+	struct node* temp;
+	temp = malloc(sizeof(struct node));
+	printf("\nEnter number to"
+		" be inserted : ");
+	scanf("%d", &data);
+	temp->info = data;
+	temp->link = start;
+	start = temp;
+}
+void insertAtEnd()
+{
+	int data;
+	struct node *temp, *head;
+	temp = malloc(sizeof(struct node));
+	printf("\nEnter number to"
+		" be inserted : ");
+	scanf("%d", &data);
+	temp->link = 0;
+	temp->info = data;
+	head = start;
+	while (head->link != NULL) {
+		head = head->link;
+	}
+	head->link = temp;
+}
+void insertAtPosition()
+{
+	struct node *temp, *newnode;
+	int pos, data, i = 1;
+	newnode = malloc(sizeof(struct node));
+	printf("\nEnter position and data :");
+	scanf("%d %d", &pos, &data);
+	temp = start;
+	newnode->info = data;
+	newnode->link = 0;
+	while (i < pos - 1) {
+		temp = temp->link;
+		i++;
+	}
+	newnode->link = temp->link;
+	temp->link = newnode;
+}
+void deleteFirst()
+{
+	struct node* temp;
+	if (start == NULL)
+		printf("\nList is empty\n");
+	else {
+		temp = start;
+		start = start->link;
+		free(temp);
+	}
+}
+void deleteEnd()
+{
+	struct node *temp, *prevnode;
+	if (start == NULL)
+		printf("\nList is Empty\n");
+	else {
+		temp = start;
+		while (temp->link != 0) {
+			prevnode = temp;
+			temp = temp->link;
+		}
+		free(temp);
+		prevnode->link = 0;
+	}
+}
+void deletePosition()
+{
+	struct node *temp, *position;
+	int i = 1, pos;
+	if (start == NULL)
+		printf("\nList is empty\n");
+	else {
+		printf("\nEnter index : ");
+		scanf("%d", &pos);
+		position = malloc(sizeof(struct node));
+		temp = start;
+		while (i < pos - 1) {
+			temp = temp->link;
+			i++;
+		}
+		position = temp->link;
+		temp->link = position->link;
+		free(position);
+	}
+}
+void reverseLL()
+{
+	struct node *t1, *t2, *temp;
+	t1 = t2 = NULL;
+	if (start == NULL)
+		printf("List is empty\n");
+	else {
+		while (start != NULL) {
+			t2 = start->link;
+			start->link = t1;
+			t1 = start;
+			start = t2;
+		}
+		start = t1;
+		temp = start;
+		printf("Reversed linked "
+			"list is : ");
+		while (temp != NULL) {
+			printf("%d ", temp->info);
+			temp = temp->link;
+		}
+	}
+}
+int main()
+{
+	int choice;
+	while (1) {
+		printf("\n\t1 To create list\n");
+		printf("\t2 To see list\n");
+		printf("\t3 For insertion at"
+			" starting\n");
+		printf("\t4 For insertion at"
+			" end\n");
+		printf("\t5 For insertion at "
+			"any position\n");
+		printf("\t6 For deletion of "
+			"first element\n");
+		printf("\t7 For deletion of "
+			"last element\n");
+		printf("\t8 For deletion of "
+			"element at any position\n");
+		printf("\t9 To reverse the "
+			"linked list\n");
+		printf("\t10 To exit\n");
+		printf("\nEnter Choice :\n");
+		scanf("%d", &choice);
+		switch (choice) {
+		case 1:
+		    createList();
+		    break;
+		case 2:
+			traverse();
+			break;
+		case 3:
+			insertAtFront();
+			break;
+		case 4:
+			insertAtEnd();
+			break;
+		case 5:
+			insertAtPosition();
+			break;
+		case 6:
+			deleteFirst();
+			break;
+		case 7:
+			deleteEnd();
+			break;
+		case 8:
+			deletePosition();
+			break;
+		case 9:
+			reverseLL();
+			break;
+		case 10:
+			exit(1);
+			break;
+		default:
+			printf("Incorrect Choice\n");
+		}
+	}
+	return 0;
+}
+
+2.)
+
+#include <stdio.h>
+int main()
+{
+    int a[10], i, item,n;
+    printf("\nEnter number of elements of an array:");
+    scanf("%d",&n);
+    printf("\nEnter elements:");
+    for (i=0; i<n; i++)
+        scanf("%d", &a[i]);
+    printf("\nEnter item to search:");
+    scanf("%d", &item);
+    for (i=0; i<=9; i++)
+        if (item == a[i])
+        {
+            printf("\nItem found at location %d", i+1);
+            break;
+        }
+    if (i > 9)
+        printf("\nItem does not exist.");
+    return 0;
+}
+
+3.)
+
+#include <stdio.h>
+int main()
+{
+int i, low, high, mid, n, key, array[10];
+printf("Enter the size of the array:");
+scanf("%d",&n);
+printf("\nEnter the %d elements of the array:", n);
+for(i = 0; i < n; i++)
+scanf("%d",&array[i]);
+printf("\nEnter the element to be searched:");
+scanf("%d", &key);
+low = 0;
+high = n - 1;
+mid = (low+high)/2;
+while (low <= high) {
+if(array[mid] < key)
+low = mid + 1;
+else if (array[mid] == key) {
+printf("\nThe element %d is found at location %d.", key, mid+1);
+break;
+}
+else
+high = mid - 1;
+mid = (low + high)/2;
+}
+if(low > high)
+printf("\nThe element %d is not present in the list.", key);
+return 0;
+}
+
+4.)
+
+#include<stdio.h>
+int stack[100],choice,n,top,x,i;
+void push(void);
+void pop(void);
+void display(void);
+int main()
+{
+    top=-1;
+    printf("\n Enter the size of STACK[MAX=100]:");
+    scanf("%d",&n);
+    printf("\n\t STACK OPERATIONS USING ARRAY");
+    printf("\n\t--------------------------------");
+    printf("\n\t 1.PUSH\n\t 2.POP\n\t 3.DISPLAY\n\t 4.EXIT");
+    do
+    {
+        printf("\n Enter the Choice:");
+        scanf("%d",&choice);
+        switch(choice)
+        {
+            case 1:
+            {
+                push();
+                break;
+            }
+            case 2:
+            {
+                pop();
+                break;
+            }
+            case 3:
+            {
+                display();
+                break;
+            }
+            case 4:
+            {
+                printf("\n\t EXIT POINT ");
+                break;
+            }
+            default:
+            {
+                printf ("\n\t Please Enter a Valid Choice(1/2/3/4)");
+            }
+                
+        }
+    }
+    while(choice!=4);
+    return 0;
+}
+void push()
+{
+    if(top>=n-1)
+    {
+        printf("\n\tSTACK is over flow");
+        
+    }
+    else
+    {
+        printf(" Enter a value to be pushed:");
+        scanf("%d",&x);
+        top++;
+        stack[top]=x;
+    }
+}
+void pop()
+{
+    if(top<=-1)
+    {
+        printf("\n\t Stack is under flow");
+    }
+    else
+    {
+        printf("\n\t The popped elements is %d",stack[top]);
+        top--;
+    }
+}
+void display()
+{
+    if(top>=0)
+    {
+        printf("\n The elements in STACK \n");
+        for(i=top; i>=0; i--)
+            printf("\n%d",stack[i]);
+        printf("\n Press Next Choice");
+    }
+    else
+    {
+        printf("\n The STACK is empty");
+    }
+}
+
+5.)
+
+#include <stdio.h>
+#include <stdlib.h>
+struct Node {
+    int data;
+    struct Node*next;
+};
+struct Node*top = NULL;
+void push(int value) {
+    struct Node*newNode;
+    newNode=(struct Node*)malloc(sizeof(struct Node));
+    newNode->data=value;
+    if(top==NULL) {
+        newNode->next=NULL;
+    } else {
+        newNode->next=top;
+    }
+    top=newNode;
+    printf("Node is Inserted\n\n");
+}
+int pop() {
+    if (top==NULL) {
+        printf("\nStack Underflow\n");
+    } else {
+        struct Node*temp=top;
+        int temp_data=top->data;
+        top=top->next;
+        free(temp);
+        return temp_data;
+    }
+}
+void display() {
+    if (top==NULL) {
+        printf("\nStack Underflow\n");
+    } else {
+        printf("The stack is \n");
+        struct Node*temp=top;
+        while (temp->next!=NULL) {
+            printf("%d--->",temp->data);
+            temp=temp->next;
+        }
+        printf("%d--->NULL\n\n",temp->data);
+    }
+}
+int main() {
+    int choice,value;
+    printf("\nImplementation of Stack using Linked List\n");
+    while (1) {
+        printf("1. Push\n2. Pop\n3. Display\n4. Exit\n");
+        printf("\nEnter your choice : ");
+        scanf("%d",&choice);
+        switch (choice) {
+        case 1:
+            printf("\nEnter the value to insert: ");
+            scanf("%d",&value);
+            push(value);
+            break;
+        case 2:
+            printf("Popped element is :%d\n",pop());
+            break;
+        case 3:
+            display();
+            break;
+        case 4:
+            exit(0);
+            break;
+        default:
+            printf("\nWrong Choice\n");
+        }
+    }
+}
+
+6.)
+
+#include<stdio.h>
+#include<stdlib.h>
+#define n 100
+int main()
+{
+    int queue[n],ch=1,front=0,rear=0,i,j=1,x=n;
+    printf("Queue using Array");
+    printf("\n1.Insertion \n2.Deletion \n3.Display \n4.Exit");
+    while(ch)
+    {
+        printf("\nEnter the Choice:");
+        scanf("%d",&ch);
+        switch(ch)
+        {
+        case 1:
+            if(rear==x)
+                printf("\n Queue is Full");
+            else
+            {
+                printf("\n Enter no %d:",j++);
+                scanf("%d",&queue[rear++]);
+            }
+            break;
+        case 2:
+            if(front==rear)
+            {
+                printf("\n Queue is empty");
+            }
+            else
+            {
+                printf("\n Deleted Element is %d",queue[front++]);
+                x++;
+            }
+            break;
+        case 3:
+            printf("\nQueue Elements are:\n ");
+            if(front==rear)
+                printf("\n Queue is Empty");
+            else
+            {
+                for(i=front; i<rear; i++)
+                {
+                    printf("%d",queue[i]);
+                    printf("\n");
+                }
+                break;
+            case 4:
+                exit(0);
+            default:
+                printf("Wrong Choice: please see the options");
+            }
+        }
+    }
+    return 0;
+}
+
+7.)
+
+#include<stdio.h> 
+#include<stdlib.h>
+struct node {
+    int data;
+    struct node* next;
+};
+struct node* front=NULL;
+struct node* rear=NULL;
+void enqueue(int value) {
+    struct node* ptr;
+    ptr=(struct node*)malloc(sizeof(struct node));
+    ptr->data=value;
+    ptr->next=NULL;
+    if((front==NULL)&&(rear==NULL)) {
+        front=rear=ptr;
+    } else {
+        rear->next=ptr;
+        rear=ptr;
+    }
+    printf("Node is Inserted\n\n");
+}
+int dequeue() {
+    if (front==NULL) {
+        printf("\nUnderflow\n");
+        return -1;
+    } else {
+        struct node* temp=front;
+        int temp_data=front->data;
+        front=front->next;
+        free(temp);
+        return temp_data;
+    }
+}
+void display() {
+    struct node* temp;
+    if((front==NULL)&&(rear==NULL)) {
+        printf("\nQueue is Empty\n");
+    } else {
+        printf("The queue is \n");
+        temp=front;
+        while(temp) {
+            printf("%d--->",temp->data);
+            temp=temp->next;
+        }
+        printf("NULL\n\n");
+    }
+}
+int main() {
+    int choice,value;
+    printf("\nImplementation of Queue using Linked List\n");
+    while (choice!=4) {
+        printf("1.Enqueue\n2.Dequeue\n3.Display\n4.Exit\n");
+        printf("\nEnter your choice : ");
+        scanf("%d",&choice);
+        switch (choice) {
+            case 1:
+                printf("\nEnter the value to insert: ");
+                scanf("%d",&value);
+                enqueue(value);
+                break;
+            case 2:
+                printf("Popped element is :%d\n",dequeue());
+                break;
+            case 3:
+                display();
+                break;
+            case 4:
+                exit(0);
+                break;
+            default:
+                printf("\nWrong Choice\n");
+        }
+    }
+    return 0;
+}
+
+8.)
+
+#include<stdio.h>
+#define max 100
+void main ()
+{
+    static int arr[max][max];
+    int i,j,r,c;
+    int ctr=0;
+    printf("How many rows and columns are in this matrix? ");
+    scanf("%d %d",&r,&c);
+    printf("Enter the elements in the matrix :\n");
+    for(i=0;i<r;i++)
+    {
+        for(j=0;j<c;j++)
+        {
+            scanf("%d",&arr[i][j]);
+            if (arr[i][j]==0)
+                ++ctr;
+        }
+    }
+    if (ctr>((r*c)/2))
+        printf ("The given matrix is a sparse matrix. \n");
+    else
+        printf ("The given matrix is not a sparse matrix.\n");
+    printf ("There are %d number of zeros in the matrix.\n",ctr);
+}
+
+9.)
+
+#define SIZE 50
+#include <ctype.h>
+#include <stdio.h>
+char s[SIZE];
+int top = -1;
+void RemoveSpaces(char* source) {
+ char* i = source;
+ char* j = source;
+ while(*j != 0) {
+ *i = *j++;
+ if(*i != ' ')
+ i++;
+ }
+ *i = 0;
+}
+void push(char elem) { 
+ s[++top] = elem;
+}
+char pop() { 
+ return (s[top--]);
+}
+int pr(char elem) { 
+ switch (elem) {
+ case '#':
+ return 0;
+ case '(':
+ return 1;
+ case '+':
+ case '-':
+ return 2;
+ case '*':
+ case '/':
+ return 3;
+ }
+}
+void infix_to_postfix(char *infix, char *postfix) {
+ char ch, elem;
+ int i = 0, k = 0;
+ RemoveSpaces(infix);
+ push('#');
+ while ((ch = infix[i++]) != '\n') {
+ if (ch == '(')
+ push(ch);
+ else if (isalnum(ch))
+ postfix[k++] = ch;
+ else if (ch == ')') {
+ while (s[top] != '(')
+ postfix[k++] = pop();
+ elem = pop();
+ } else {
+ while (pr(s[top]) >= pr(ch))
+ postfix[k++] = pop();
+ push(ch);
+ }
+ }
+ while (s[top] != '#')
+ postfix[k++] = pop();
+ 
+ postfix[k] = 0;
+}
+int eval_postfix(char *postfix) {
+ char ch;
+ int i = 0, op1, op2;
+ while((ch = postfix[i++]) != 0) {
+ if(isdigit(ch)) 
+ push(ch-'0');
+ else {
+ op2 = pop();
+ op1 = pop();
+ switch(ch) {
+ case '+' : push(op1+op2); 
+ break;
+ case '-' : push(op1-op2); 
+ break;
+ case '*' : push(op1*op2);
+ break;
+ case '/' : push(op1/op2);
+ break;
+ }
+ }
+ }
+ return s[top];
+}
+void main() {
+ char infx[50], pofx[50];
+ printf("\nInput the infix expression: ");
+ fgets(infx, 50, stdin);
+ infix_to_postfix(infx, pofx);
+ printf("\nGiven Infix Expression: %sPostfix Expression: %s", infx, pofx);
+ top = -1;
+ printf("\nResult of evaluation of postfix expression : %d", eval_postfix(pofx));
+}
+
+10.) and 11.) combined in one program
+
+#include <stdio.h>
+#include <stdlib.h>
+void bubbleSort(int[], int);
+void insertionSort(int[], int);
+void quickSort(int[], int, int);
+void mergeSort(int[], int, int);
+void selectionSort(int[], int);
+int main() {
+	int n, arr[100];
+	int i;
+	int op, cont;
+	do {
+		printf("Enter size of array: ");
+		scanf("%d", &n);
+		printf("Enter values of array:\n");
+		for(i = 0; i < n; i++) {
+			scanf("%d", &arr[i]);
+		}
+		printf("Enter sorting algorithm to use:\n1: Bubble sort\n2: Insertion sort\n3: Quick sort\n4: Merge sort\n5: Selection sort");
+		scanf("%d", &op);
+		switch(op) {
+			case 1:
+				bubbleSort(arr, n);
+				break;
+			case 2:
+				insertionSort(arr, n);
+				break;
+			case 3:
+				quickSort(arr, 0, n - 1);
+				break;
+			case 4:
+				mergeSort(arr, 0, n - 1);
+				break;
+			case 5:
+			    selectionSort(arr, n);
+			    break;
+			default:
+				printf("Invalid option!");
+		}
+		for(i = 0; i < n; i++) {
+			printf("%d ", arr[i]);
+		}
+		printf("\nContinue? 1/0:\t");
+		scanf("%d", &cont);
+	} while(cont == 1);
+	return 0;
+}
+void bubbleSort(int arr[], int size) {
+	int i, j, temp;
+	for(i = 0; i < size - 1; i++) {
+		for(j = 0; j < size - i - 1; j++) {
+			if (arr[j] > arr[j + 1]) {
+				temp = arr[j];
+				arr[j] = arr[j + 1];
+				arr[j + 1] = temp;
+			}
+		}
+	}
+}
+void insertionSort(int arr[], int size) {
+	int i, j, key;
+	for(i = 1; i < size; i++) {
+		key = arr[i];
+		for(j = i; j > 0 && arr[j - 1] > key; j--) {
+			arr[j] = arr[j - 1];
+		}
+		arr[j] = key;
+	}
+}
+int partition(int arr[], int offset, int size) {
+	int x = arr[size];
+	int i = offset - 1;
+	int j;
+	int temp;
+	for(j = offset; j < size; j++) {
+		if (arr[j] <= x) {
+			i++;
+			temp = arr[i];
+			arr[i] = arr[j];
+			arr[j] = temp;
+		}
+	}
+	temp = arr[i + 1];
+	arr[i + 1] = arr[size];
+	arr[size] = temp;
+	return i + 1;
+}
+void quickSort(int arr[], int offset, int size) {
+	int pivot;
+	if (offset < size) {
+		pivot = partition(arr, offset, size);
+		quickSort(arr, offset, pivot - 1);
+		quickSort(arr, pivot + 1, size);
+	}
+}
+void merge(int arr[], int offset, int mid, int size) {
+	int n1 = mid - offset + 1;
+	int n2 = size - mid;
+	int* l = (int*)calloc(n1 + 1, sizeof(int));
+	int* r = (int*)calloc(n2 + 1, sizeof(int));
+	int i, j, k;
+	for(i = 0; i < n1; i++) {
+		*(l + i) = arr[offset + i];
+	}
+	for(j = 0; j < n2; j++) {
+		*(r + j) = arr[mid + j + 1];
+	}
+	*(l + n1) = 32767;
+	*(r + n2) = 32767;
+	i = j = 0;
+	for(k = offset; k <= size; k++) {
+		if(*(l + i) <= *(r + j)) {
+			arr[k] = *(l + i);
+			i++;
+		}
+		else {
+			arr[k] = *(r + j);
+			j++;
+		}
+	}
+	free(l);
+	free(r);
+}
+void mergeSort(int arr[], int offset, int size) {
+	if (offset < size) {
+		int mid = (offset + size) / 2;
+		mergeSort(arr, offset, mid);
+		mergeSort(arr, mid + 1, size);
+		merge(arr, offset, mid, size);
+	}
+}
+void selectionSort(int arr[],int size)
+{
+    int i,j,temp;
+    for(i=0;i<size-1;i++)
+    {
+        for(j=i+1;j<size;j++)
+        {
+            if(arr[i]>arr[j])
+            {
+             temp=arr[i];
+             arr[i]=arr[j];
+             arr[j]=temp;
+            }
+        }
+    }
+}
+
+12.)
+
+#include <stdio.h>
+int main()
+{
+    int arr[10], no,  i, j, c, heap_root, temp;
+    printf("Input number of elements: ");
+    scanf("%d", &no);
+    printf("\nInput array values one by one : ");
+    for (i = 0; i <  no; i++)
+    scanf("%d", &arr[i]);
+    for (i = 1; i <  no; i++)
+    {
+        c = i;
+        do
+        {
+            heap_root  = (c - 1) / 2;
+            if  (arr[heap_root] < arr[c])
+            {
+                temp =  arr[heap_root];
+                arr[heap_root] = arr[c];
+                arr[c]  = temp;
+            }
+            c =  heap_root;
+        } while (c !=  0);
+    }
+    printf("Heap  array : ");
+    for (i = 0; i <  no; i++)
+    printf("%d\t ", arr[i]);
+    for (j = no - 1; j  >= 0; j--)
+    {
+        temp = arr[0];
+        arr[0] = arr[j];
+        arr[j] = temp;
+        heap_root = 0;
+        do
+        {
+            c = 2 *  heap_root + 1;
+            if  ((arr[c] < arr[c + 1]) && c < j-1)
+            c++;
+            if  (arr[heap_root]<arr[c] && c<j)
+            {
+                temp =  arr[heap_root];
+                arr[heap_root] = arr[c];
+                arr[c]  = temp;
+            }
+            heap_root  = c;
+        }   while (c  < j);
+    } 
+    printf("\nSorted  array : ");
+    for (i = 0; i <  no; i++)
+    printf("\t%d", arr[i]);
+    printf("\n");
+}
+
+13.)
+
+#include <stdio.h>
+#include <stdlib.h>
+struct set
+{
+  int key;
+  int data;
+};
+struct set *array;
+int capacity = 10;
+int size = 0;
+int hashFunction(int key)
+{
+  return (key % capacity);
+}
+int checkPrime(int n)
+{
+  int i;
+  if (n == 1 || n == 0)
+  {
+  return 0;
+  }
+  for (i = 2; i < n / 2; i++)
+  {
+  if (n % i == 0)
+  {
+    return 0;
+  }
+  }
+  return 1;
+}
+int getPrime(int n)
+{
+  if (n % 2 == 0)
+  {
+  n++;
+  }
+  while (!checkPrime(n))
+  {
+  n += 2;
+  }
+  return n;
+}
+void init_array()
+{
+  capacity = getPrime(capacity);
+  array = (struct set *)malloc(capacity * sizeof(struct set));
+  for (int i = 0; i < capacity; i++)
+  {
+  array[i].key = 0;
+  array[i].data = 0;
+  }
+}
+void insert(int key, int data)
+{
+  int index = hashFunction(key);
+  if (array[index].data == 0)
+  {
+  array[index].key = key;
+  array[index].data = data;
+  size++;
+  printf("\n Key (%d) has been inserted \n", key);
+  }
+  else if (array[index].key == key)
+  {
+  array[index].data = data;
+  }
+  else
+  {
+  printf("\n Collision occured  \n");
+  }
+}
+void remove_element(int key)
+{
+  int index = hashFunction(key);
+  if (array[index].data == 0)
+  {
+  printf("\n This key does not exist \n");
+  }
+  else
+  {
+  array[index].key = 0;
+  array[index].data = 0;
+  size--;
+  printf("\n Key (%d) has been removed \n", key);
+  }
+}
+void display()
+{
+  int i;
+  for (i = 0; i < capacity; i++)
+  {
+  if (array[i].data == 0)
+  {
+    printf("\n array[%d]: / ", i);
+  }
+  else
+  {
+    printf("\n key: %d array[%d]: %d \t", array[i].key, i, array[i].data);
+  }
+  }
+}
+int size_of_hashtable()
+{
+  return size;
+}
+
+int main()
+{
+  int choice, key, data, n;
+  int c = 0;
+  init_array();
+  do
+  {
+  printf("1.Insert item in the Hash Table"
+     "\n2.Remove item from the Hash Table"
+     "\n3.Check the size of Hash Table"
+     "\n4.Display a Hash Table"
+     "\n\n Please enter your choice: ");
+  scanf("%d", &choice);
+  switch (choice)
+  {
+  case 1:
+    printf("Enter key -:\t");
+    scanf("%d", &key);
+    printf("Enter data -:\t");
+    scanf("%d", &data);
+    insert(key, data);
+    break;
+  case 2:
+    printf("Enter the key to delete-:");
+    scanf("%d", &key);
+    remove_element(key);
+    break;
+  case 3:
+    n = size_of_hashtable();
+    printf("Size of Hash Table is-:%d\n", n);
+    break;
+  case 4:
+    display();
+    break;
+  default:
+    printf("Invalid Input\n");
+  }
+  printf("\nDo you want to continue (press 1 for yes): ");
+  scanf("%d", &c);
+  } while (c == 1);
+}
+
+14.)
+
+#include<stdio.h>
+int q[20],top=-1,front=-1,rear=-1,a[20][20],vis[20],stack[20];
+int delete();
+void add(int item);
+void bfs(int s,int n);
+void dfs(int s,int n);
+void push(int item);
+int pop();
+void main()
+{
+int n,i,s,ch,j;
+char c,dummy;
+printf("ENTER THE NUMBER OF VERTICES: ");
+scanf("%d",&n);
+for(i=1;i<=n;i++)
+{
+for(j=1;j<=n;j++)
+{
+printf("ENTER 1 IF %d HAS A NODE WITH %d ELSE 0-> ",i,j);
+scanf("%d",&a[i][j]);
+}
+}
+printf("THE ADJACENCY MATRIX IS: -\n");
+for(i=1;i<=n;i++)
+{
+for(j=1;j<=n;j++)
+{
+printf(" %d",a[i][j]);
+}
+printf("\n");
+}
+
+do
+{
+for(i=1;i<=n;i++)
+vis[i]=0;
+printf("\nMENU");
+printf("\n1.B.F.S");
+printf("\n2.D.F.S");
+printf("\nENTER YOUR CHOICE: ");
+scanf("%d",&ch);
+printf("ENTER THE SOURCE VERTEX-> ");
+scanf("%d",&s);
+
+switch(ch)
+{
+case 1:bfs(s,n);
+break;
+case 2:
+dfs(s,n);
+break;
+}
+printf("DO U WANT TO CONTINUE (Y/N)? -> ");
+scanf("%c",&dummy);
+scanf("%c",&c);
+}while((c=='y')||(c=='Y'));
+}
+
+
+//**************BFS(breadth-first search) code**************//
+void bfs(int s,int n)
+{
+int p,i;
+add(s);
+vis[s]=1;
+p=delete();
+if(p!=0)
+printf(" %d",p);
+while(p!=0)
+{
+for(i=1;i<=n;i++)
+if((a[p][i]!=0)&&(vis[i]==0))
+{
+add(i);
+vis[i]=1;
+}
+p=delete();
+if(p!=0)
+printf(" %d ",p);
+}
+for(i=1;i<=n;i++)
+if(vis[i]==0)
+bfs(i,n);
+}
+
+
+void add(int item)
+{
+if(rear==19)
+printf("QUEUE FULL");
+else
+{
+if(rear==-1)
+{
+q[++rear]=item;
+front++;
+}
+else
+q[++rear]=item;
+}
+}
+int delete()
+{
+int k;
+if((front>rear)||(front==-1))
+return(0);
+else
+{
+k=q[front++];
+return(k);
+}
+}
+
+
+//***************DFS(depth-first search) code******************//
+void dfs(int s,int n)
+{
+int i,k;
+push(s);
+vis[s]=1;
+k=pop();
+if(k!=0)
+printf(" %d ",k);
+while(k!=0)
+{
+for(i=1;i<=n;i++)
+if((a[k][i]!=0)&&(vis[i]==0))
+{
+push(i);
+vis[i]=1;
+}
+k=pop();
+if(k!=0)
+printf(" %d ",k);
+}
+for(i=1;i<=n;i++)
+if(vis[i]==0)
+dfs(i,n);
+}
+void push(int item)
+{
+if(top==19)
+printf("STACK OVERFLOW");
+else
+stack[++top]=item;
+}
+int pop()
+{
+int k;
+if(top==-1)
+return(0);
+else
+{
+k=stack[top--];
+return(k);
+}
+}
+
+15.)
+
+#include<stdio.h>
+#include<malloc.h>
+#include<stdlib.h>
+struct node {
+  int data;
+  struct node * lptr, * rptr;
+};
+void Insert(struct node * , int);
+void Preorder(struct node * );
+void Postorder(struct node * );
+void Inorder(struct node * );
+void Delete(struct node * , int);
+struct node * Header;
+int main() {
+  int ch, x;
+  Header = (struct node * ) malloc(sizeof(struct node));
+  Header -> lptr = Header;
+  Header -> rptr = Header;
+  do {
+    printf("\n1.Insert a node in a Tree");
+    printf("\n2.Preorder Traversal(Recursively)");
+    printf("\n3.Postorder Traversal(Recursively)");
+    printf("\n4.Inorder Traversal(Recursively)");
+    printf("\n5.Delete a node from Binary Search Tree");
+    printf("\n6.Exit");
+    printf("\n\nEnter Choice: ");
+    scanf("%d", & ch);
+    switch (ch) {
+    case 1:
+      printf("\n\tEnter Element : ");
+      scanf("%d", & x);
+      Insert(Header, x);
+      printf("\n\tInorder Traversal(Recursively)=\n\t");
+      printf("\n\t-------------------------------------\n\t");
+      Inorder(Header -> lptr);
+      printf("\n\t-------------------------------------\n\t");
+      break;
+    case 2:
+      printf("\n\tPreorder Traversal(Recursively):\n\t");
+      printf("\n\t-------------------------------------\n\t");
+      Preorder(Header -> lptr);
+      printf("\n\t-------------------------------------\n\t");
+      break;
+    case 3:
+      printf("\n\tPostorder Traversal(Recursively):\n\t");
+      printf("\n\t-------------------------------------\n\t");
+      Postorder(Header -> lptr);
+      printf("\n\t-------------------------------------\n\t");
+      break;
+    case 4:
+      printf("\n\tInorder Traversal(Recursively):\n\t");
+      printf("\n\t-------------------------------------\n\t");
+      Inorder(Header -> lptr);
+      printf("\n\t-------------------------------------\n\t");
+      break;
+    case 5:
+      printf("\n\tEnter Element which u want to Delete: ");
+      scanf("%d", & x);
+      printf("\n\t-------------------------------------\n\t");
+      Delete(Header, x);
+      printf("\n\t-------------------------------------\n\t");
+      break;
+    case 6:
+      exit(0);
+      break;
+    default:
+      printf("\n\t Plz Try Again.");
+    }
+  } while (6);
+}
+void Insert(struct node * h, int x) {
+  struct node * New, * parent, * cur;
+  New = (struct node * ) malloc(sizeof(struct node));
+  if (New == NULL) {
+    printf("\n\tNo Tree Node Available.");
+    return;
+  }
+  New -> data = x;
+  New -> lptr = NULL;
+  New -> rptr = NULL;
+  if (h -> lptr == h) {
+    h -> lptr = New;
+    return;
+  }
+  cur = h -> lptr;
+  parent = h;
+  while (cur != NULL) {
+    if (x < cur -> data) {
+      parent = cur;
+      cur = cur -> lptr;
+    } else if (x > cur -> data) {
+      parent = cur;
+      cur = cur -> rptr;
+    } else {
+      printf("\n\t Element Already Exist.\n");
+      return;
+    }
+  }
+  if (x < parent -> data) {
+    parent -> lptr = New;
+    return;
+  }
+  if (x > parent -> data) {
+    parent -> rptr = New;
+    return;
+  }
+  return;
+}
+void Preorder(struct node * t) {
+  if (t != NULL)
+    printf("%d  ", t -> data);
+  else {
+    printf("\n\t Empty Tree.");
+    return;
+  }
+  if (t -> lptr != NULL)
+    Preorder(t -> lptr);
+  if (t -> rptr != NULL)
+    Preorder(t -> rptr);
+  return;
+}
+void Postorder(struct node * t) {
+  if (t == NULL) {
+    printf("\n\t Empty Tree.");
+    return;
+  }
+  Postorder(t -> lptr);
+  Postorder(t -> rptr);
+  printf("%d  ", t -> data);
+  return;
+}
+void Inorder(struct node * t) {
+  if (t == NULL) {
+    printf("\n\t Empty Tree.");
+    return;
+  }
+  if (t -> lptr != NULL)
+    Inorder(t -> lptr);
+  printf("%d  ", t -> data);
+  if (t -> rptr != NULL)
+    Inorder(t -> rptr);
+  return;
+}
+void Delete(struct node * h, int x) {
+  int found;
+  char d;
+  struct node * cur, * parent, * pred, * suc, * q;
+  if (h -> lptr == h) {
+    printf("\n\t Empty Tree.");
+    return;
+  }
+  parent = h;
+  cur = h -> lptr;
+  d = 'L';
+  found = 0;
+  while (!found && cur != NULL) {
+    if (x == cur -> data)
+      found = 1;
+    else if (x < cur -> data) {
+      parent = cur;
+      cur = cur -> lptr;
+      d = 'L';
+    } else {
+      parent = cur;
+      cur = cur -> rptr;
+      d = 'R';
+    }
+  }
+  if (!found) {
+    printf("\n\t Node is not found.");
+    return;
+  }
+  if (cur -> lptr == NULL)
+    q = cur -> rptr;
+  else {
+    if (cur -> rptr == NULL)
+      q = cur -> lptr;
+    else {
+      suc = cur -> rptr;
+      if (suc -> lptr == NULL) {
+        suc -> lptr = cur -> lptr;
+        q = suc;
+      } else {
+        pred = cur -> rptr;
+        suc = pred -> lptr;
+        while (suc -> lptr != NULL) {
+          pred = suc;
+          suc = pred -> lptr;
+        }
+        pred -> lptr = suc -> rptr;
+        suc -> lptr = cur -> lptr;
+        suc -> rptr = cur -> rptr;
+        q = suc;
+      }
+    }
+  }
+  if (d == 'L')
+    parent -> lptr = q;
+  else
+    parent -> rptr = q;
+  printf("\n\t%d is Deleted.", x);
+}
+
+16.)
+
+#include <stdio.h>
+#include <stdlib.h>
+struct node
+{
+    int data;
+    struct node *left;
+    struct node *right;
+};
+struct node *root = NULL;
+struct node *create_node(int);
+void insert(int);
+struct node *delete (struct node *, int);
+int search(int);
+void inorder(struct node *);
+void postorder();
+void preorder();
+struct node *smallest_node(struct node *);
+struct node *largest_node(struct node *);
+int get_data();
+int main()
+{
+    int userChoice;
+    int userActive = 'Y';
+    int data;
+    struct node* result = NULL;
+    while (userActive == 'Y' || userActive == 'y')
+    {
+        printf("\n\n------- Binary Search Tree ------\n");
+        printf("\n1. Insert");
+        printf("\n2. Delete");
+        printf("\n3. Search");
+        printf("\n4. Get Larger Node Data");
+        printf("\n5. Get smaller Node data");
+        printf("\n\n-- Traversals --");
+        printf("\n\n6. Inorder ");
+        printf("\n7. Post Order ");
+        printf("\n8. Pre Oder ");
+        printf("\n9. Exit");
+        printf("\n\nEnter Your Choice: ");
+        scanf("%d", &userChoice);
+        printf("\n");
+        switch(userChoice)
+        {
+            case 1:
+                data = get_data();
+                insert(data);
+                break;
+            case 2:
+                data = get_data();
+                root = delete(root, data);
+                break;
+            case 3:
+                data = get_data();
+                if (search(data) == 1)
+                {
+                    printf("\nData was found!\n");
+                }
+                else
+                {
+                    printf("\nData does not found!\n");
+                }
+                break;
+            case 4:
+                result = largest_node(root);
+                if (result != NULL)
+                {
+                    printf("\nLargest Data: %d\n", result->data);
+                }
+                break;
+            case 5:
+                result = smallest_node(root);
+                if (result != NULL)
+                {
+                    printf("\nSmallest Data: %d\n", result->data);
+                }
+                break;
+            case 6:
+                inorder(root);
+                break;
+            case 7:
+                postorder(root);
+                break;
+            case 8:
+                preorder(root);
+                break;
+            case 9:
+                printf("\n\nProgram was terminated\n");
+                break;
+            default:
+                printf("\n\tInvalid Choice\n");
+                break;
+        }
+        printf("\n__________\nDo you want to continue? ");
+        fflush(stdin);
+        scanf(" %c", &userActive);
+    }
+    return 0;
+}
+struct node *create_node(int data)
+{
+    struct node *new_node = (struct node *)malloc(sizeof(struct node));
+    if (new_node == NULL)
+    {
+        printf("\nMemory for new node can't be allocated");
+        return NULL;
+    }
+    new_node->data = data;
+    new_node->left = NULL;
+    new_node->right = NULL;
+    return new_node;
+}
+void insert(int data)
+{
+    struct node *new_node = create_node(data);
+    if (new_node != NULL)
+    {
+        if (root == NULL)
+        {
+            root = new_node;
+            printf("\n* node having data %d was inserted\n", data);
+            return;
+        }
+        struct node *temp = root;
+        struct node *prev = NULL;
+        while (temp != NULL)
+        {
+            prev = temp;
+            if (data > temp->data)
+            {
+                temp = temp->right;
+            }
+            else
+            {
+                temp = temp->left;
+            }
+        }
+        if (data > prev->data)
+        {
+            prev->right = new_node;
+        }
+        else
+        {
+            prev->left = new_node;
+        }
+ 
+        printf("\n* node having data %d was inserted\n", data);
+    }
+}
+struct node *delete (struct node *root, int key)
+{
+    if (root == NULL)
+    {
+        return root;
+    }
+    if (key < root->data)
+    {
+        root->left = delete (root->left, key);
+    }
+    else if (key > root->data)
+    {
+        root->right = delete (root->right, key);
+    }
+    else
+    {
+        if (root->left == NULL)
+        {
+            struct node *temp = root->right;
+            free(root);
+            return temp;
+        }
+        else if (root->right == NULL)
+        {
+            struct node *temp = root->left;
+            free(root);
+            return temp;
+        }
+        struct node *temp = smallest_node(root->right);
+        root->data = temp->data;
+        root->right = delete (root->right, temp->data);
+    }
+    return root;
+ 
+}
+int search(int key)
+{
+    struct node *temp = root;
+ 
+    while (temp != NULL)
+    {
+        if (key == temp->data)
+        {
+            return 1;
+        }
+        else if (key > temp->data)
+        {
+            temp = temp->right;
+        }
+        else
+        {
+            temp = temp->left;
+        }
+    }
+    return 0;
+}
+struct node *smallest_node(struct node *root)
+{
+    struct node *curr = root;
+    while (curr != NULL && curr->left != NULL)
+   {
+        curr = curr->left;
+    }
+    return curr;
+}
+struct node *largest_node(struct node *root)
+{
+    struct node *curr = root;
+    while (curr != NULL && curr->right != NULL)
+    {
+        curr = curr->right;
+    }
+    return curr;
+}
+void inorder(struct node *root)
+{
+    if (root == NULL)
+    {
+        return;
+    }
+    inorder(root->left);
+    printf("%d ",  root->data);
+    inorder(root->right);
+}
+void preorder(struct node *root)
+{
+    if (root == NULL)
+    {
+        return;
+    }
+    printf("%d ", root->data);
+    preorder(root->left);
+    preorder(root->right);
+}
+void postorder(struct node *root)
+{
+    if (root == NULL)
+    {
+        return;
+    }
+    postorder(root->left);
+    postorder(root->right);
+    printf("%d ", root->data);
+}
+int get_data()
+{
+    int data;
+    printf("\nEnter Data: ");
+    scanf("%d", &data);
+    return data;
+}
+
+17.)
+
+#include <stdio.h>
+#include <stdlib.h>
+typedef enum {false,true} boolean;
+struct node *in_succ(struct node *p);
+struct node *in_pred(struct node *p);
+struct node *insert(struct node *root, int ikey);
+struct node *del(struct node *root, int dkey);
+struct node *case_a(struct node *root, struct node *par,struct node *ptr);
+struct node *case_b(struct node *root,struct node *par,struct node *ptr);
+struct node *case_c(struct node *root, struct node *par,struct node *ptr);
+void inorder( struct node *root);
+void preorder( struct node *root);
+struct node
+{
+        struct node *left;
+        boolean lthread;
+        int info;
+        boolean rthread;
+        struct node *right;
+};
+int main( )
+{
+        int choice,num;
+        struct node *root=NULL;
+        while(1)
+        {
+                printf("\n");
+                printf("1.Insert\n");
+                printf("2.Delete\n");
+                printf("3.Inorder Traversal\n");
+                printf("4.Preorder Traversal\n");
+                printf("5.Quit\n");
+                printf("\nEnter your choice : ");
+                scanf("%d",&choice);
+                switch(choice)
+                {
+                 case 1:
+                        printf("\nEnter the number to be inserted : ");
+                        scanf("%d",&num);
+                        root = insert(root,num);
+                        break;
+                 case 2:
+                        printf("\nEnter the number to be deleted : ");
+                        scanf("%d",&num);
+                        root = del(root,num);
+                        break;
+                 case 3:
+                        inorder(root);
+                        break;
+                 case 4:
+                        preorder(root);
+                        break;
+                 case 5:
+                         exit(1);
+                 default:
+                        printf("\nWrong choice\n");
+                }
+        }
+        return 0;
+}
+struct node *insert(struct node *root, int ikey)
+{
+        struct node *tmp,*par,*ptr;
+        int found=0;
+        ptr = root;
+        par = NULL;
+        while( ptr!=NULL )
+        {
+                if( ikey == ptr->info)
+                {
+                        found =1;
+                        break;
+                }
+                par = ptr;
+                if(ikey < ptr->info)
+                {
+                        if(ptr->lthread == false)
+                                ptr = ptr->left;
+                        else
+                                break;
+                }
+                else
+                {
+                        if(ptr->rthread == false)
+                                ptr = ptr->right;
+                        else
+                                break;
+                }
+        }
+        if(found)
+                printf("\nDuplicate key");
+        else
+        {
+
+                tmp=(struct node *)malloc(sizeof(struct node));
+                tmp->info=ikey;
+                tmp->lthread = true;
+                tmp->rthread = true;
+                if(par==NULL)
+                {
+                        root=tmp;
+                        tmp->left=NULL;
+                        tmp->right=NULL;
+                }
+                else if( ikey < par->info )
+                {
+                        tmp->left=par->left;
+                        tmp->right=par;
+                        par->lthread=false;
+                        par->left=tmp;
+                }
+                else
+                {
+                        tmp->left=par;
+                        tmp->right=par->right;
+                        par->rthread=false;
+                        par->right=tmp;
+                }
+        }
+        return root;
+}
+struct node *del(struct node *root, int dkey)
+{
+        struct node *par,*ptr;
+        int found=0;
+        ptr = root;
+        par = NULL;
+        while( ptr!=NULL)
+        {
+                if( dkey == ptr->info)
+                {
+                        found =1;
+                        break;
+                }
+                par = ptr;
+                if(dkey < ptr->info)
+                {
+                        if(ptr->lthread == false)
+                                ptr = ptr->left;
+                        else
+                                break;
+                }
+                else
+                {
+                        if(ptr->rthread == false)
+                                ptr = ptr->right;
+                        else
+                                break;
+                }
+        }
+        if(found==0)
+                printf("\ndkey not present in tree");
+        else if(ptr->lthread==false && ptr->rthread==false)
+                root = case_c(root,par,ptr);
+        else if(ptr->lthread==false )
+        root = case_b(root, par,ptr);
+        else if(ptr->rthread==false)
+        root = case_b(root, par,ptr);
+        else
+                root = case_a(root,par,ptr);
+        return root;
+}
+struct node *case_a(struct node *root, struct node *par,struct node *ptr )
+{
+        if(par==NULL)
+                root=NULL;
+        else if(ptr==par->left)
+        {
+                par->lthread=true;
+                par->left=ptr->left;
+        }
+        else
+        {
+                par->rthread=true;
+                par->right=ptr->right;
+        }
+        free(ptr);
+        return root;
+}
+struct node *case_b(struct node *root,struct node *par,struct node *ptr)
+{
+        struct node *child,*s,*p;
+        if(ptr->lthread==false)
+                child=ptr->left;
+        else
+                child=ptr->right;
+        if(par==NULL )
+                root=child;
+        else if( ptr==par->left)
+                par->left=child;
+        else
+                par->right=child;
+        s=in_succ(ptr);
+        p=in_pred(ptr);
+        if(ptr->lthread==false)
+                        p->right=s;
+        else
+        {
+                if(ptr->rthread==false)
+                        s->left=p;
+        }
+        free(ptr);
+        return root;
+}
+struct node *case_c(struct node *root, struct node *par,struct node *ptr)
+{
+        struct node *succ,*parsucc;
+        parsucc = ptr;
+        succ = ptr->right;
+        while(succ->left!=NULL)
+        {
+                parsucc = succ;
+                succ = succ->left;
+        }
+        ptr->info = succ->info;
+        if(succ->lthread==true && succ->rthread==true)
+                root = case_a(root, parsucc,succ);
+        else
+                root = case_b(root, parsucc,succ);
+        return root;
+}
+struct node *in_succ(struct node *ptr)
+{
+        if(ptr->rthread==true)
+                return ptr->right;
+        else
+        {
+                ptr=ptr->right;
+                while(ptr->lthread==false)
+                        ptr=ptr->left;
+                return ptr;
+        }
+}
+struct node *in_pred(struct node *ptr)
+{
+        if(ptr->lthread==true)
+                return ptr->left;
+        else
+        {
+                ptr=ptr->left;
+                while(ptr->rthread==false)
+                        ptr=ptr->right;
+                return ptr;
+        }
+}
+void inorder( struct node *root)
+{
+        struct node *ptr;
+        if(root == NULL )
+        {
+                printf("Tree is empty");
+                return;
+        }
+        ptr=root;
+        while(ptr->lthread==false)
+                ptr=ptr->left;
+
+        while( ptr!=NULL )
+        {
+                printf("%d ",ptr->info);
+                ptr=in_succ(ptr);
+        }
+}
+void preorder(struct node *root )
+{
+        struct node *ptr;
+        if(root==NULL)
+        {
+                printf("Tree is empty");
+                return;
+        }
+        ptr=root;
+        while(ptr!=NULL)
+        {
+                printf("%d ",ptr->info);
+                if(ptr->lthread==false)
+                        ptr=ptr->left;
+                else if(ptr->rthread==false)
+                        ptr=ptr->right;
+                else
+                {
+                        while(ptr!=NULL && ptr->rthread==true)
+                                ptr=ptr->right;
+                        if(ptr!=NULL)
+                                ptr=ptr->right;
+                }
+        }
+}
+
+18.)
+
+#include<stdio.h>
+#include<stdlib.h>
+struct node
+{
+    int data;
+    struct node* left;
+    struct node* right;
+    int ht;
+};
+struct node* root = NULL;
+struct node* create(int);
+struct node* insert(struct node*, int);
+struct node* delete(struct node*, int);
+struct node* search(struct node*, int);
+struct node* rotate_left(struct node*);
+struct node* rotate_right(struct node*);
+int balance_factor(struct node*);
+int height(struct node*);
+void inorder(struct node*);
+void preorder(struct node*);
+void postorder(struct node*);
+int main()
+{
+    int user_choice, data;
+    char user_continue = 'y';
+    struct node* result = NULL;
+    while (user_continue == 'y' || user_continue == 'Y')
+    {
+        printf("\n\n------- AVL TREE --------\n");
+        printf("\n1. Insert");
+        printf("\n2. Delete");
+        printf("\n3. Search");
+        printf("\n4. Inorder");
+        printf("\n5. Preorder");
+        printf("\n6. Postorder");
+        printf("\n7. EXIT");
+        printf("\n\nEnter Your Choice: ");
+        scanf("%d", &user_choice);
+        switch(user_choice)
+        {
+            case 1:
+                printf("\nEnter data: ");
+                scanf("%d", &data);
+                root = insert(root, data);
+                break;
+            case 2:
+                printf("\nEnter data: ");
+                scanf("%d", &data);
+                root = delete(root, data);
+                break;
+            case 3:
+                printf("\nEnter data: ");
+                scanf("%d", &data);
+                result = search(root, data);
+                if (result == NULL)
+                {
+                    printf("\nNode not found!");
+                }
+                else
+                {
+                    printf("\n Node found");
+                }
+                break;
+            case 4:
+                inorder(root);
+                break;
+            case 5:
+                preorder(root);
+                break;
+            case 6:
+                postorder(root);
+                break;
+            case 7:
+                printf("\n\tProgram Terminated\n");
+                return 1;
+            default:
+                printf("\n\tInvalid Choice\n");
+        }
+        printf("\n\nDo you want to continue? ");
+        scanf(" %c", &user_continue);
+    }
+    return 0;
+}
+struct node* create(int data)
+{
+    struct node* new_node = (struct node*) malloc (sizeof(struct node));
+    if (new_node == NULL)
+    {
+        printf("\nMemory can't be allocated\n");
+        return NULL;
+    }
+    new_node->data = data;
+    new_node->left = NULL;
+    new_node->right = NULL;
+    return new_node;
+}
+struct node* rotate_left(struct node* root)
+{
+    struct node* right_child = root->right;
+    root->right = right_child->left;
+    right_child->left = root;
+    root->ht = height(root);
+    right_child->ht = height(right_child);
+    return right_child;
+}
+struct node* rotate_right(struct node* root)
+{
+    struct node* left_child = root->left;
+    root->left = left_child->right;
+    left_child->right = root;
+    root->ht = height(root);
+    left_child->ht = height(left_child);
+    return left_child;
+}
+int balance_factor(struct node* root)
+{
+    int lh, rh;
+    if (root == NULL)
+        return 0;
+    if (root->left == NULL)
+        lh = 0;
+    else
+        lh = 1 + root->left->ht;
+    if (root->right == NULL)
+        rh = 0;
+    else
+        rh = 1 + root->right->ht;
+    return lh - rh;
+}
+int height(struct node* root)
+{
+    int lh, rh;
+    if (root == NULL)
+    {
+        return 0;
+    }
+    if (root->left == NULL)
+        lh = 0;
+    else
+        lh = 1 + root->left->ht;
+    if (root->right == NULL)
+        rh = 0;
+    else
+        rh = 1 + root->right->ht;
+    if (lh > rh)
+        return (lh);
+    return (rh);
+}
+struct node* insert(struct node* root, int data)
+{
+    if (root == NULL)
+    {
+        struct node* new_node = create(data);
+        if (new_node == NULL)
+        {
+            return NULL;
+        }
+        root = new_node;
+    }
+    else if (data > root->data)
+    {
+        root->right = insert(root->right, data);
+        if (balance_factor(root) == -2)
+        {
+            if (data > root->right->data)
+            {
+                root = rotate_left(root);
+            }
+            else
+            {
+                root->right = rotate_right(root->right);
+                root = rotate_left(root);
+            }
+        }
+    }
+    else
+    {
+        root->left = insert(root->left, data);
+        if (balance_factor(root) == 2)
+        {
+            if (data < root->left->data)
+            {
+                root = rotate_right(root);
+            }
+            else
+            {
+                root->left = rotate_left(root->left);
+                root = rotate_right(root);
+            }
+        }
+    }
+    root->ht = height(root);
+    return root;
+}
+struct node * delete(struct node *root, int x)
+{
+    struct node * temp = NULL;
+    if (root == NULL)
+    {
+        return NULL;
+    } 
+    if (x > root->data)
+    {
+        root->right = delete(root->right, x);
+        if (balance_factor(root) == 2)
+        {
+            if (balance_factor(root->left) >= 0)
+            {
+                root = rotate_right(root);
+            }
+            else
+            {
+                root->left = rotate_left(root->left);
+                root = rotate_right(root);
+            }
+        }
+    }
+    else if (x < root->data)
+    {
+        root->left = delete(root->left, x);
+        if (balance_factor(root) == -2)
+        {
+            if (balance_factor(root->right) <= 0)
+            {
+                root = rotate_left(root);
+            }
+            else
+            {
+                root->right = rotate_right(root->right);
+                root = rotate_left(root);
+            }
+        }
+    }
+    else
+    {
+        if (root->right != NULL)
+        { 
+            temp = root->right;
+            while (temp->left != NULL)
+                temp = temp->left;
+            root->data = temp->data;
+            root->right = delete(root->right, temp->data);
+            if (balance_factor(root) == 2)
+            {
+                if (balance_factor(root->left) >= 0)
+                {
+                    root = rotate_right(root);
+                }
+                else
+                {
+                    root->left = rotate_left(root->left);
+                    root = rotate_right(root);
+                }
+            }
+        }
+        else
+        {
+            return (root->left);
+        }
+    }
+    root->ht = height(root);
+    return (root);
+}
+struct node* search(struct node* root, int key)
+{
+    if (root == NULL)
+    {
+        return NULL;
+    }
+    if(root->data == key)
+    {
+        return root;
+    }
+    if(key > root->data)
+    {
+        search(root->right, key);
+    }
+    else
+    {
+        search(root->left, key);
+    } 
+}
+void inorder(struct node* root)
+{
+    if (root == NULL)
+    {
+        return;
+    }
+    inorder(root->left);
+    printf("%d ", root->data);
+    inorder(root->right);
+}
+void preorder(struct node* root)
+{
+    if (root == NULL)
+    {
+        return;
+    }
+    printf("%d ", root->data);
+    preorder(root->left);
+    preorder(root->right);
+}
+void postorder(struct node* root)
+{
+    if (root == NULL)
+    {
+        return;
+    }
+    postorder(root->left);
+    postorder(root->right);
+    printf("%d ", root->data);
+}
+
+                                                               ..............END OF ALL C PROGRAMS FOR THIS SEMESTER...........
